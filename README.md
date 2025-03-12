@@ -1,36 +1,108 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Arquitectura del Proyecto ARQ DE VIDA
 
-## Getting Started
+## Estructura de Directorios
 
-First, run the development server:
-
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+```
+src/
+├── app/                    # App router de Next.js y páginas principales
+│   ├── (auth)/            # Grupo de rutas autenticadas
+│   ├── api/               # Rutas de API
+│   └── [...]/             # Otras rutas de la aplicación
+├── components/            # Componentes de React
+│   ├── common/           # Componentes compartidos (botones, inputs, etc.)
+│   ├── features/         # Componentes específicos de features
+│   └── layouts/          # Componentes de layout
+├── hooks/                # Custom hooks de React
+├── lib/                  # Utilidades y configuraciones
+│   ├── api/             # Configuración de API y endpoints
+│   ├── constants/       # Constantes globales
+│   └── utils/           # Funciones utilitarias
+├── types/               # Definiciones de tipos TypeScript
+├── styles/              # Estilos globales y configuración de Tailwind
+├── store/              # Manejo de estado global (si se necesita)
+└── tests/              # Tests unitarios y de integración
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Descripción de la Arquitectura
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### 1. App Router (`src/app/`)
+- Implementa el nuevo App Router de Next.js 13+
+- Organiza las rutas de manera jerárquica
+- Permite route groups para mejor organización
+- Mantiene layouts compartidos
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### 2. Componentes (`src/components/`)
+- **common/**: Componentes reutilizables como botones, inputs, cards
+- **features/**: Componentes específicos de características del negocio
+- **layouts/**: Componentes de layout como headers, footers, sidebars
 
-## Learn More
+### 3. Hooks (`src/hooks/`)
+- Custom hooks reutilizables
+- Lógica compartida entre componentes
+- Manejo de estado y efectos
 
-To learn more about Next.js, take a look at the following resources:
+### 4. Lib (`src/lib/`)
+- **api/**: Configuración de APIs, fetchers, endpoints
+- **constants/**: Valores constantes, enums, configuraciones
+- **utils/**: Funciones utilitarias y helpers
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### 5. Types (`src/types/`)
+- Interfaces y tipos TypeScript
+- DTOs para API
+- Tipos compartidos
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### 6. Styles (`src/styles/`)
+- Configuración de Tailwind
+- Estilos globales
+- Variables CSS y temas
 
-## Deploy on Vercel
+### 7. Store (`src/store/`)
+- Manejo de estado global (si se requiere)
+- Configuración de estado global (Zustand/Redux/Jotai)
+- Actions y reducers
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### 8. Tests (`src/tests/`)
+- Tests unitarios con Jest/Vitest
+- Tests de integración
+- Testing utilities y mocks
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Convenciones y Mejores Prácticas
+
+### Nomenclatura
+- Componentes: PascalCase (ej. `Button.tsx`, `UserProfile.tsx`)
+- Hooks: camelCase con prefix 'use' (ej. `useAuth.ts`, `useForm.ts`)
+- Utilidades: camelCase (ej. `formatDate.ts`, `validation.ts`)
+- Types: PascalCase con sufijo descriptivo (ej. `UserDTO.ts`, `AuthResponse.ts`)
+
+### Importaciones
+- Usar imports absolutos desde la raíz `src/`
+- Agrupar imports por tipo (React, componentes, hooks, etc.)
+- Evitar imports circulares
+
+### Organización de Código
+- Un componente por archivo
+- Separación clara de lógica y presentación
+- Componentes pequeños y reutilizables
+- Custom hooks para lógica compartida
+
+### Performance
+- Implementar lazy loading donde sea necesario
+- Optimizar imágenes y assets
+- Memoización selectiva de componentes
+- Prefetching inteligente de rutas
+
+### Seguridad
+- Validación de inputs
+- Sanitización de datos
+- Manejo seguro de autenticación
+- Protección de rutas sensibles
+
+## Escalabilidad
+
+Esta arquitectura está diseñada para escalar en varios aspectos:
+
+1. **Vertical**: Añadir nuevas características dentro de los módulos existentes
+2. **Horizontal**: Crear nuevos módulos manteniendo la misma estructura
+3. **Performance**: Optimizar el rendimiento sin cambiar la arquitectura base
+4. **Equipo**: Permitir que múltiples desarrolladores trabajen en paralelo
+5. **Mantenimiento**: Facilitar debugging y actualizaciones
