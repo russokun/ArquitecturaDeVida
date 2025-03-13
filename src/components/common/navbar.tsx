@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 import { usePathname } from 'next/navigation'
 
 const Navbar = () => {
@@ -11,11 +12,11 @@ const Navbar = () => {
   const isActiveLink = (path: string) => pathname === path
 
   const navLinks = [
-    { text: "Inicio", href: "/" },
-    { text: "Sobre Mí", href: "/about" },
-    { text: "Testimonios", href: "/testimonios" },
-    { text: "Recursos", href: "/resources" },
-    { text: "Servicios", href: "/services" },
+    { href: "/", text: "Inicio" },
+    { href: "/services", text: "Servicios" },
+    { href: "/resources", text: "Recursos" },
+    { href: "/testimonios", text: "Testimonios" },
+    { href: "/about", text: "Sobre Mí" },
   ]
 
   const toggleMenu = () => {
@@ -27,8 +28,14 @@ const Navbar = () => {
       <div className="container mx-auto px-4">
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
-          <Link href="/" className="text-2xl font-bold text-blue-600">
-            ARQ DE VIDA
+          <Link href="/" className="relative w-60 h-60">
+            <Image
+              src="/imgs/common/logo.png"
+              alt="Arq de Vida Logo"
+              fill
+              className="object-contain"
+              priority
+            />
           </Link>
 
           {/* Navigation Links - Desktop */}
@@ -37,13 +44,18 @@ const Navbar = () => {
               <Link
                 key={link.href}
                 href={link.href}
-                className={`${
-                  isActiveLink(link.href)
-                    ? "text-blue-600 font-semibold"
-                    : "text-gray-600 hover:text-blue-600"
-                } transition-colors`}
+                className={`relative py-2 text-gray-600 hover:text-blue-600 transition-colors
+                  ${isActiveLink(link.href) && 'text-blue-600'}
+                  group
+                `}
               >
                 {link.text}
+                <span 
+                  className={`absolute bottom-0 left-0 w-full h-0.5 bg-blue-600 transform origin-left transition-transform duration-300
+                    ${isActiveLink(link.href) ? 'scale-x-100' : 'scale-x-0'}
+                    group-hover:scale-x-100
+                  `}
+                />
               </Link>
             ))}
           </div>
@@ -94,6 +106,7 @@ const Navbar = () => {
               href={link.href}
               className={`
                 block px-3 py-2 rounded-md text-base font-medium
+                relative overflow-hidden
                 ${
                   isActiveLink(link.href)
                     ? "bg-blue-50 text-blue-600"
@@ -104,6 +117,9 @@ const Navbar = () => {
               onClick={() => setIsMenuOpen(false)}
             >
               {link.text}
+              {isActiveLink(link.href) && (
+                <span className="absolute bottom-0 left-0 w-full h-0.5 bg-blue-600" />
+              )}
             </Link>
           ))}
         </div>
