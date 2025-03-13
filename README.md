@@ -1,108 +1,104 @@
 # Arquitectura del Proyecto ARQ DE VIDA
 
-## Estructura de Directorios
+## Estructura de Layouts y Pages
 
 ```
 src/
-├── app/                    # App router de Next.js y páginas principales
-│   ├── (auth)/            # Grupo de rutas autenticadas
-│   ├── api/               # Rutas de API
-│   └── [...]/             # Otras rutas de la aplicación
-├── components/            # Componentes de React
-│   ├── common/           # Componentes compartidos (botones, inputs, etc.)
-│   ├── features/         # Componentes específicos de features
-│   └── layouts/          # Componentes de layout
-├── hooks/                # Custom hooks de React
-├── lib/                  # Utilidades y configuraciones
-│   ├── api/             # Configuración de API y endpoints
-│   ├── constants/       # Constantes globales
-│   └── utils/           # Funciones utilitarias
-├── types/               # Definiciones de tipos TypeScript
-├── styles/              # Estilos globales y configuración de Tailwind
-├── store/              # Manejo de estado global (si se necesita)
-└── tests/              # Tests unitarios y de integración
+├── app/                    
+│   ├── layout.tsx         # Layout principal (RootLayout)
+│   ├── page.tsx           # Página principal (Home)
+│   │
+│   └── (marketing)/       # Grupo de rutas para contenido del sitio
+       ├── about/          # Ruta "Sobre Mí"
+       │   └── page.tsx
+       ├── services/       # Ruta "Servicios"
+       │   └── page.tsx
+       ├── resources/      # Ruta "Recursos"
+       │   └── page.tsx
+       └── layout.tsx      # Layout compartido para secciones informativas
 ```
 
-## Descripción de la Arquitectura
+### Uso de Layouts
 
-### 1. App Router (`src/app/`)
-- Implementa el nuevo App Router de Next.js 13+
-- Organiza las rutas de manera jerárquica
-- Permite route groups para mejor organización
-- Mantiene layouts compartidos
+1. **RootLayout (`app/layout.tsx`)**
+   - Define la estructura base de toda la aplicación
+   - Incluye elementos comunes como:
+     - Navbar
+     - Footer
+     - Metadatos globales
+     - Fuentes personalizadas
+     - Estilos globales
 
-### 2. Componentes (`src/components/`)
-- **common/**: Componentes reutilizables como botones, inputs, cards
-- **features/**: Componentes específicos de características del negocio
-- **layouts/**: Componentes de layout como headers, footers, sidebars
+2. **Layout de Marketing (`app/(marketing)/layout.tsx`)**
+   - Específico para páginas informativas
+   - Incluye elementos como:
+     - Breadcrumbs
+     - CTAs compartidos
+     - Newsletter signup
+     - Testimonios
 
-### 3. Hooks (`src/hooks/`)
-- Custom hooks reutilizables
-- Lógica compartida entre componentes
-- Manejo de estado y efectos
+### Uso de Pages
 
-### 4. Lib (`src/lib/`)
-- **api/**: Configuración de APIs, fetchers, endpoints
-- **constants/**: Valores constantes, enums, configuraciones
-- **utils/**: Funciones utilitarias y helpers
+1. **Home (`app/page.tsx`)**
+   - Landing page principal
+   - Secciones:
+     - Hero section
+     - Features principales
+     - Call-to-actions
+     - Testimonios destacados
 
-### 5. Types (`src/types/`)
-- Interfaces y tipos TypeScript
-- DTOs para API
-- Tipos compartidos
+2. **Páginas de Contenido**
+   - `about/page.tsx`: Historia, misión, valores
+   - `services/page.tsx`: Servicios ofrecidos
+   - `resources/page.tsx`: Recursos y materiales
+   - Cada página mantiene su propio diseño específico mientras comparte elementos comunes del layout
 
-### 6. Styles (`src/styles/`)
-- Configuración de Tailwind
-- Estilos globales
-- Variables CSS y temas
+### Beneficios de esta Estructura
 
-### 7. Store (`src/store/`)
-- Manejo de estado global (si se requiere)
-- Configuración de estado global (Zustand/Redux/Jotai)
-- Actions y reducers
+1. **Simplicidad**
+   - Estructura clara y directa
+   - Fácil de mantener
+   - Sin complejidad innecesaria
 
-### 8. Tests (`src/tests/`)
-- Tests unitarios con Jest/Vitest
-- Tests de integración
-- Testing utilities y mocks
+2. **Organización**
+   - Separación lógica de contenido
+   - Agrupación por propósito
+   - Navegación intuitiva
 
-## Convenciones y Mejores Prácticas
+3. **Reutilización**
+   - Layouts compartidos
+   - Componentes comunes
+   - Consistencia en UI/UX
 
-### Nomenclatura
-- Componentes: PascalCase (ej. `Button.tsx`, `UserProfile.tsx`)
-- Hooks: camelCase con prefix 'use' (ej. `useAuth.ts`, `useForm.ts`)
-- Utilidades: camelCase (ej. `formatDate.ts`, `validation.ts`)
-- Types: PascalCase con sufijo descriptivo (ej. `UserDTO.ts`, `AuthResponse.ts`)
+4. **Rendimiento**
+   - Carga optimizada
+   - Caching eficiente
+   - Rutas simples
 
-### Importaciones
-- Usar imports absolutos desde la raíz `src/`
-- Agrupar imports por tipo (React, componentes, hooks, etc.)
-- Evitar imports circulares
+5. **SEO**
+   - Estructura clara para buscadores
+   - URLs limpias
+   - Metadatos organizados
 
-### Organización de Código
-- Un componente por archivo
-- Separación clara de lógica y presentación
-- Componentes pequeños y reutilizables
-- Custom hooks para lógica compartida
+### Convenciones y Mejores Prácticas
 
-### Performance
-- Implementar lazy loading donde sea necesario
-- Optimizar imágenes y assets
-- Memoización selectiva de componentes
-- Prefetching inteligente de rutas
+1. **Nomenclatura**
+   - Componentes: PascalCase
+   - Archivos de página: page.tsx
+   - Archivos de layout: layout.tsx
 
-### Seguridad
-- Validación de inputs
-- Sanitización de datos
-- Manejo seguro de autenticación
-- Protección de rutas sensibles
+2. **Organización**
+   - Agrupar páginas relacionadas
+   - Mantener layouts simples
+   - Componentizar elementos comunes
 
-## Escalabilidad
+3. **Contenido**
+   - Mantener páginas enfocadas
+   - Evitar duplicación
+   - Priorizar contenido importante
 
-Esta arquitectura está diseñada para escalar en varios aspectos:
-
-1. **Vertical**: Añadir nuevas características dentro de los módulos existentes
-2. **Horizontal**: Crear nuevos módulos manteniendo la misma estructura
-3. **Performance**: Optimizar el rendimiento sin cambiar la arquitectura base
-4. **Equipo**: Permitir que múltiples desarrolladores trabajen en paralelo
-5. **Mantenimiento**: Facilitar debugging y actualizaciones
+Esta estructura simplificada nos permite:
+- Mantener el código organizado
+- Escalar según necesidades futuras
+- Facilitar el mantenimiento
+- Optimizar el rendimiento

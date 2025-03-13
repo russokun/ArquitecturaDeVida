@@ -1,15 +1,12 @@
 import Image from "next/image"
 import Link from "next/link"
 import { Instagram, Facebook, Linkedin, Youtube } from "lucide-react"
-import Navbar from "../components/features/navbar"
-import ContentSection from "../components/features/contentSection"
-import SplitContent from "../components/features/splitContent"
-import Footer from "../components/common/footer"
+import ContentSection from "@/components/features/contentSection"
+import SplitContent from "@/components/features/splitContent"
+
 export default function Home() {
   return (
     <main className="flex min-h-screen flex-col">
-      <Navbar />
-
       {/* Hero Section */}
       <section className="relative w-full min-h-[600px] bg-gradient-to-r from-blue-600 to-blue-800 overflow-hidden">
         {/* Background decorative elements */}
@@ -25,7 +22,7 @@ export default function Home() {
           {/* Image */}
           <div className="md:w-1/2 relative z-10">
             <Image
-              src="/public/imgs/ana/WhatsApp Image 2023-03-15 at 7_46_edited.avif"
+              src="/imgs/inicio/WhatsApp-Image-2023-03-15-at-7_46_edited.jpg"
               alt="Ana Lidia"
               width={500}
               height={600}
@@ -90,34 +87,35 @@ export default function Home() {
 
       {/* About Section */}
       <section className="bg-gradient-to-b from-yellow-100 via-yellow-50 to-rose-200 py-16 relative">
-      <div className="container mx-auto px-4 flex flex-col md:flex-row items-center">
-        <div className="md:w-2/3 text-center md:text-left mb-8 md:mb-0">
-          <h2 className="text-5xl md:text-6xl font-bold text-red-600 mb-6">Soy Ana Lidia</h2>
-          <p className="text-lg md:text-xl text-gray-800 max-w-2xl mx-auto md:mx-0">
-            Ayudo a coaches y facilitadores a <span className="font-semibold">diseñar y construir </span> 
-            sesiones y talleres impactantes que los diferencian de 
-            la competencia, y a transmitir su experiencia y 
-            conocimientos de una manera memorable y efectiva. 
-            Con mi ayuda, fortalecen su confianza y aumentan su 
-            reputación como líderes en su campo, lo que les 
-            permite atraer y retener a más clientes y lograr el éxito 
-            que desean.
-          </p>
-        </div>
-        <div className="md:w-1/3 flex justify-center md:justify-end">
-          <div className="relative">
-            {/* If you're having issues with the Image component, you can use standard img tag */}
-            <img 
-              src="/ana-lidia.png" 
-              alt="Ana Lidia" 
-              className="rounded-lg w-64 md:w-80"
-            />
+        <div className="container mx-auto px-4 flex flex-col md:flex-row items-center">
+          <div className="md:w-2/3 text-center md:text-left mb-8 md:mb-0">
+            <h2 className="text-5xl md:text-6xl font-bold text-red-600 mb-6">Soy Ana Lidia</h2>
+            <p className="text-lg md:text-xl text-gray-800 max-w-2xl mx-auto md:mx-0">
+              Ayudo a coaches y facilitadores a <span className="font-semibold">diseñar y construir </span> 
+              sesiones y talleres impactantes que los diferencian de 
+              la competencia, y a transmitir su experiencia y 
+              conocimientos de una manera memorable y efectiva. 
+              Con mi ayuda, fortalecen su confianza y aumentan su 
+              reputación como líderes en su campo, lo que les 
+              permite atraer y retener a más clientes y lograr el éxito 
+              que desean.
+            </p>
+          </div>
+          <div className="md:w-1/3 flex justify-center md:justify-end">
+            <div className="relative">
+              <Image 
+                src="/imgs/inicio/IMG_2336.jpg"
+                alt="Ana Lidia"
+                width={320}
+                height={400}
+                className="rounded-lg"
+              />
+            </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
 
-      {/* Mentoring Section - Using the new component */}
+      {/* Mentoring Section */}
       <ContentSection
         bgColor="bg-blue-800"
         textColor="text-white"
@@ -138,12 +136,12 @@ export default function Home() {
         }}
       />
 
-      {/* Creativity Section - Using the new component */}
+      {/* Creativity Section */}
       <ContentSection
         bgColor="bg-pink-200"
         textColor="text-gray-800"
-        imageSrc="/placeholder.svg?height=600&width=500"
-        imageAlt="Ana Lidia"
+        imageSrc="/imgs/inicio/IMG_2372.jpg"
+        imageAlt="Ana Lidia facilitando"
         imagePosition="left"
         decorativeElements={true}
         decorativeShapes={{
@@ -167,40 +165,7 @@ export default function Home() {
         </div>
       </ContentSection>
       
-      {/* Ejemplo de uso del nuevo componente SplitContent */}
-      <SplitContent
-        imagePosition="left"
-        imageSrc="/placeholder.svg?height=800&width=800"
-        imageAlt="Espacio de trabajo creativo"
-        title="MENTORIA UNO A UNO"
-        titleClassName="text-black"
-        contentBg="bg-gray-200"
-        content={
-          <>
-            <p className="text-lg text-gray-700">
-              ¿Estás buscando llevar tus habilidades de facilitación creativa al siguiente nivel? Únete a mi programa de
-              mentoría uno a uno y aprende cómo crear experiencias creativas y memorables para tus participantes
-              utilizando la lúdica y la gamificación.
-            </p>
-
-            <p className="text-lg text-gray-700">
-              En este programa, trabajaré contigo de forma personalizada para ayudarte a alcanzar tus objetivos y
-              mejorar tus habilidades de facilitación. Aprenderás cómo utilizar técnicas innovadoras para diseñar
-              talleres y sesiones que involucren y entusiasmen a tus participantes, permitiéndoles explorar su
-              creatividad de una manera única.
-            </p>
-
-            <p className="text-lg text-gray-700">
-              No importa si eres un facilitador experimentado o si estás comenzando tu carrera, mi programa de mentoría
-              uno a uno te ayudará a alcanzar tus objetivos y mejorar tus habilidades de facilitación creativa.
-            </p>
-          </>
-        }
-        buttonText="SABER MÁS"
-        buttonClassName="bg-gray-600 hover:bg-red-700"
-      />
-      <Footer></Footer>
+      
     </main>
   )
 }
-

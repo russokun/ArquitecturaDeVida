@@ -1,85 +1,114 @@
-"use client"
+'use client'
 
-import { useState } from "react"
-import Image from "next/image"
-import Link from "next/link"
-import { Menu } from "lucide-react"
+import { useState } from 'react'
+import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 
-export default function Navbar() {
+const Navbar = () => {
+  const pathname = usePathname()
   const [isMenuOpen, setIsMenuOpen] = useState(false)
 
+  const isActiveLink = (path: string) => pathname === path
+
+  const navLinks = [
+    { href: "/", text: "Inicio" },
+    { href: "/services", text: "Servicios" },
+    { href: "/resources", text: "Recursos" },
+    { href: "/about", text: "Sobre Mí" },  // Texto en español pero ruta en inglés
+  ]
+
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen)
+  }
+
   return (
-    <header className="bg-white shadow-sm sticky top-0 z-50">
+    <nav className="bg-white shadow-md sticky top-0 z-50">
       <div className="container mx-auto px-4">
-        <div className="flex justify-between items-center h-20">
+        <div className="flex justify-between items-center h-16">
           {/* Logo */}
-          <Link href="/" className="flex items-center">
-            <div className="relative h-14 w-40">
-             
-            </div>
+          <Link href="/" className="text-2xl font-bold text-blue-600">
+            ARQ DE VIDA
           </Link>
 
-          {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center space-x-1">
-            <NavLink href="/" active>
-              INICIO
-            </NavLink>
-            <NavLink href="/quien-soy">QUIEN SOY</NavLink>
-            <NavLink href="/testimonios">TESTIMONIOS</NavLink>
-            <NavLink href="/recursos">RECURSOS</NavLink>
-            <NavLink href="/servicios">SERVICIOS</NavLink>
-           
-          </nav>
+          {/* Navigation Links - Desktop */}
+          <div className="hidden md:flex space-x-8">
+            {navLinks.map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                className={`${
+                  isActiveLink(link.href)
+                    ? "text-blue-600 font-semibold"
+                    : "text-gray-600 hover:text-blue-600"
+                } transition-colors`}
+              >
+                {link.text}
+              </Link>
+            ))}
+          </div>
 
-          {/* Mobile menu button */}
-          <button className="md:hidden text-gray-600 hover:text-gray-900" onClick={() => setIsMenuOpen(!isMenuOpen)}>
-            <Menu size={24} />
+          {/* Mobile Menu Button */}
+          <button 
+            onClick={toggleMenu}
+            className="md:hidden text-gray-600 hover:text-blue-600 focus:outline-none"
+            aria-label="Toggle menu"
+          >
+            <svg
+              className="h-6 w-6"
+              fill="none"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              {isMenuOpen ? (
+                <path d="M6 18L18 6M6 6l12 12" />
+              ) : (
+                <path d="M4 6h16M4 12h16M4 18h16" />
+              )}
+            </svg>
           </button>
         </div>
       </div>
 
-      {/* Mobile Navigation */}
-      {isMenuOpen && (
-        <div className="md:hidden bg-white py-4 px-4 shadow-md">
-          <nav className="flex flex-col space-y-3">
-            <MobileNavLink href="/" active>
-              INICIO
-            </MobileNavLink>
-            <MobileNavLink href="/quien-soy">QUIEN SOY</MobileNavLink>
-            <MobileNavLink href="/testimonios">TESTIMONIOS</MobileNavLink>
-            <MobileNavLink href="/recursos">RECURSOS</MobileNavLink>
-            <MobileNavLink href="/servicios">SERVICIOS</MobileNavLink>
-            <MobileNavLink href="/blog">BLOG</MobileNavLink>
-          </nav>
+      {/* Mobile Menu */}
+      <div 
+        className={`
+          md:hidden 
+          absolute 
+          w-full 
+          bg-white 
+          shadow-lg 
+          transition-all 
+          duration-300 
+          ease-in-out
+          ${isMenuOpen ? 'opacity-100 max-h-96' : 'opacity-0 max-h-0 invisible'}
+        `}
+      >
+        <div className="px-2 pt-2 pb-3 space-y-1">
+          {navLinks.map((link) => (
+            <Link
+              key={link.href}
+              href={link.href}
+              className={`
+                block px-3 py-2 rounded-md text-base font-medium
+                ${
+                  isActiveLink(link.href)
+                    ? "bg-blue-50 text-blue-600"
+                    : "text-gray-600 hover:bg-blue-50 hover:text-blue-600"
+                }
+                transition-colors
+              `}
+              onClick={() => setIsMenuOpen(false)}
+            >
+              {link.text}
+            </Link>
+          ))}
         </div>
-      )}
-    </header>
+      </div>
+    </nav>
   )
 }
 
-function NavLink({ href, children, active = false }: { href: string; children: React.ReactNode; active?: boolean }) {
-  return (
-    <Link
-      href={href}
-      className={`px-3 py-2 text-sm font-medium transition-colors ${
-        active ? "text-red-600 border-b-2 border-red-600" : "text-gray-700 hover:text-red-600"
-      }`}
-    >
-      {children}
-    </Link>
-  )
-}
-
-function MobileNavLink({ href, children, active = false }: { href: string; children: React.ReactNode; active?: boolean }) {
-  return (
-    <Link
-      href={href}
-      className={`px-3 py-2 text-base font-medium ${
-        active ? "text-red-600 font-bold" : "text-gray-700 hover:text-red-600"
-      }`}
-    >
-      {children}
-    </Link>
-  )
-}
-
+export default Navbar

@@ -1,74 +1,67 @@
+'use client'
+
 import type { ReactNode } from "react"
 import Image from "next/image"
+import { useState } from "react"
 
 type SplitContentProps = {
-  // Layout
   imagePosition?: "left" | "right"
   minHeight?: string
-
-  // Image
   imageSrc: string
   imageAlt: string
   imagePriority?: boolean
-
-  // Content
   title?: string
   titleClassName?: string
   content: ReactNode
   contentClassName?: string
-
-  // Container
   className?: string
-
-  // Button
   buttonText?: string
   buttonUrl?: string
   buttonClassName?: string
-
-  // Background colors
   imageBg?: string
   contentBg?: string
 }
 
 export default function SplitContent({
-  // Layout
   imagePosition = "left",
   minHeight = "min-h-[600px]",
-
-  // Image
   imageSrc,
   imageAlt,
   imagePriority = false,
-
-  // Content
   title,
   titleClassName = "",
   content,
   contentClassName = "",
-
-  // Container
   className = "",
-
-  // Button
   buttonText,
   buttonUrl = "#",
   buttonClassName = "",
-
-  // Background colors
   imageBg = "bg-gray-100",
   contentBg = "bg-white",
 }: SplitContentProps) {
+  const [isImageLoaded, setIsImageLoaded] = useState(false)
+
   return (
     <section className={`flex flex-col md:flex-row w-full ${minHeight} ${className}`}>
       {/* Image Container */}
-      <div className={`w-full md:w-1/2 relative ${imageBg} ${imagePosition === "right" ? "md:order-2" : "md:order-1"}`}>
-        <Image
-          src={imageSrc || "/placeholder.svg"}
-          alt={imageAlt}
-          fill
-          priority={imagePriority}
-          className="object-cover"
-        />
+      <div 
+        className={`w-full md:w-1/2 relative ${imageBg} ${
+          imagePosition === "right" ? "md:order-2" : "md:order-1"
+        } overflow-hidden`}
+      >
+        <div className="relative w-full h-full min-h-[300px]">
+          <Image
+            src={imageSrc}
+            alt={imageAlt}
+            fill
+            priority={imagePriority}
+            className={`object-cover transition-opacity duration-300 ${
+              isImageLoaded ? 'opacity-100' : 'opacity-0'
+            }`}
+            sizes="(max-width: 768px) 100vw, 50vw"
+            onLoad={() => setIsImageLoaded(true)}
+          />
+        </div>
       </div>
 
       {/* Content Container */}
@@ -78,7 +71,11 @@ export default function SplitContent({
         }`}
       >
         <div className="flex flex-col justify-center px-8 md:px-12 lg:px-16 py-12 h-full">
-          {title && <h2 className={`text-2xl md:text-3xl lg:text-4xl font-bold mb-6 ${titleClassName}`}>{title}</h2>}
+          {title && (
+            <h2 className={`text-2xl md:text-3xl lg:text-4xl font-bold mb-6 ${titleClassName}`}>
+              {title}
+            </h2>
+          )}
 
           <div className={`space-y-4 ${contentClassName}`}>{content}</div>
 
@@ -95,4 +92,3 @@ export default function SplitContent({
     </section>
   )
 }
-
