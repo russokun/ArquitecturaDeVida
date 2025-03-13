@@ -1,3 +1,5 @@
+'use client'
+
 import Image from 'next/image'
 import Link from 'next/link'
 
@@ -27,9 +29,10 @@ interface ContentSectionProps {
   decorativeShapes?: DecorativeShapes
   decorativeColors?: DecorativeColors
   children?: React.ReactNode
+  useContainer?: boolean
 }
 
-const ContentSection = ({
+export default function ContentSection({
   bgColor,
   textColor,
   description,
@@ -43,7 +46,8 @@ const ContentSection = ({
   decorativeShapes,
   decorativeColors,
   children,
-}: ContentSectionProps) => {
+  useContainer = true,
+}: ContentSectionProps) {
   const renderDecorativeElements = () => {
     if (!decorativeElements || !decorativeShapes || !decorativeColors) return null
 
@@ -65,54 +69,86 @@ const ContentSection = ({
     )
   }
 
-  const contentOrder = imagePosition === 'left' ? 'md:flex-row-reverse' : 'md:flex-row'
+  const ContentSection = () => (
+    <div 
+      style={{ flex: '1 0 50%' }}
+      className={`${textColor} z-10 space-y-6 text-center md:text-left order-1 lg:order-none`}
+    >
+      {description && (
+        <p className="text-lg md:text-xl leading-relaxed">{description}</p>
+      )}
+
+      {children}
+
+      {buttonText && buttonUrl && !children && (
+        <div className="mt-8">
+          <Link
+            href={buttonUrl}
+            className={`inline-block px-8 py-4 rounded-full font-bold text-white 
+              ${
+                buttonGradient
+                  ? 'bg-gradient-to-r from-cyan-400 to-blue-500 hover:from-cyan-500 hover:to-blue-600'
+                  : 'bg-cyan-400 hover:bg-cyan-500'
+              } 
+              transition-all`}
+          >
+            {buttonText}
+          </Link>
+        </div>
+      )}
+    </div>
+  )
+
+  const ImageSection = () => (
+    <div 
+      style={{ flex: '1 0 50%' }}
+      className="relative z-10 order-2 lg:order-none overflow-hidden"
+    >
+      <div className="relative aspect-[4/3] lg:h-full min-h-[300px]">
+        <Image
+          src={imageSrc!}
+          alt={imageAlt || ''}
+          fill
+          className="object-cover rounded-lg"
+          sizes="(max-width: 1024px) 100vw, 50vw"
+        />
+      </div>
+    </div>
+  )
+
+  const Content = () => (
+    <div className="w-full flex flex-col lg:flex-row items-center gap-8">
+      {imageSrc ? (
+        imagePosition === 'left' ? (
+          <>
+            <ImageSection />
+            <ContentSection />
+          </>
+        ) : (
+          <>
+            <ContentSection />
+            <ImageSection />
+          </>
+        )
+      ) : (
+        <div className="max-w-3xl mx-auto">
+          <ContentSection />
+        </div>
+      )}
+    </div>
+  )
 
   return (
     <section className={`relative ${bgColor} overflow-hidden py-16`}>
       {decorativeElements && renderDecorativeElements()}
 
-      <div className={`container mx-auto px-4 flex flex-col ${contentOrder} items-center gap-8`}>
-        {/* Image Section */}
-        {imageSrc && (
-          <div className="md:w-1/2 relative z-10">
-            <Image
-              src={imageSrc}
-              alt={imageAlt || ''}
-              width={500}
-              height={600}
-              className="object-contain"
-            />
-          </div>
-        )}
-
-        {/* Content Section */}
-        <div className={`md:w-1/2 ${textColor} z-10 space-y-6`}>
-          {description ? (
-            <p className="text-lg md:text-xl leading-relaxed">{description}</p>
-          ) : (
-            children
-          )}
-
-          {buttonText && buttonUrl && (
-            <div className="mt-8">
-              <Link
-                href={buttonUrl}
-                className={`inline-block px-8 py-4 rounded-full font-bold text-white 
-                  ${
-                    buttonGradient
-                      ? 'bg-gradient-to-r from-cyan-400 to-blue-500 hover:from-cyan-500 hover:to-blue-600'
-                      : 'bg-cyan-400 hover:bg-cyan-500'
-                  } 
-                  transition-all`}
-              >
-                {buttonText}
-              </Link>
-            </div>
-          )}
+      {useContainer ? (
+        <div className="container mx-auto px-4">
+          <Content />
         </div>
-      </div>
+      ) : (
+        <Content />
+      )}
     </section>
   )
 }
-
-export default ContentSection

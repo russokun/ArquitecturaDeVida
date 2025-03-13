@@ -1,14 +1,12 @@
-import Image from "next/image"
-import Link from "next/link"
-import { Instagram, Facebook, Linkedin, Youtube } from "lucide-react"
 import ContentSection from "@/components/features/contentSection"
-import SplitContent from "@/components/features/splitContent"
+import Button from "@/components/common/button"
+import Image from "next/image"
 
-export default function Home() {
+export default function HomePage() {
   return (
-    <main className="flex min-h-screen flex-col">
-      {/* Hero Section */}
-      <section className="relative w-full min-h-[600px] bg-gradient-to-r from-blue-600 to-blue-800 overflow-hidden">
+    <>
+     {/* Hero Section */}
+     <section className="relative w-full min-h-[600px] bg-gradient-to-r from-blue-600 to-blue-800 overflow-hidden">
         {/* Background decorative elements */}
         <div className="absolute right-20 top-40 w-64 h-64 rounded-full bg-yellow-400 opacity-80"></div>
         <div className="absolute right-40 bottom-20 w-40 h-40 rounded-full bg-blue-500"></div>
@@ -67,24 +65,6 @@ export default function Home() {
             </div>
           </div>
         </div>
-
-        {/* Social media sidebar */}
-        <div className="fixed right-4 top-1/2 transform -translate-y-1/2 flex flex-col gap-4 z-20">
-          <Link href="#" className="bg-pink-500 text-white p-2 rounded-full hover:bg-pink-600 transition-colors">
-            <Instagram size={20} />
-          </Link>
-          <Link href="#" className="bg-blue-600 text-white p-2 rounded-full hover:bg-blue-700 transition-colors">
-            <Facebook size={20} />
-          </Link>
-          <Link href="#" className="bg-blue-500 text-white p-2 rounded-full hover:bg-blue-600 transition-colors">
-            <Linkedin size={20} />
-          </Link>
-          <Link href="#" className="bg-red-600 text-white p-2 rounded-full hover:bg-red-700 transition-colors">
-            <Youtube size={20} />
-          </Link>
-        </div>
-      </section>
-
       {/* About Section */}
       <section className="bg-gradient-to-b from-yellow-100 via-yellow-50 to-rose-200 py-16 relative">
         <div className="container mx-auto px-4 flex flex-col md:flex-row items-center">
@@ -103,13 +83,7 @@ export default function Home() {
           </div>
           <div className="md:w-1/3 flex justify-center md:justify-end">
             <div className="relative">
-              <Image 
-                src="/imgs/inicio/IMG_2336.jpg"
-                alt="Ana Lidia"
-                width={320}
-                height={400}
-                className="rounded-lg"
-              />
+              
             </div>
           </div>
         </div>
@@ -164,8 +138,57 @@ export default function Home() {
           <p className="text-xl md:text-2xl font-bold">CON TU ESENCIA</p>
         </div>
       </ContentSection>
+
       
-      
-    </main>
+
+      {/* Nueva Sección 2: Recursos */}
+      <ContentSection
+        bgColor="bg-blue-900"
+        textColor="text-white"
+        description="Accede a nuestra biblioteca de recursos, herramientas y guías para mejorar tus habilidades de facilitación y crear experiencias memorables."
+        imageSrc="/imgs/inicio/IMG_2336.jpg"
+        imageAlt="Recursos de facilitación"
+        imagePosition="right"
+        useContainer={false}
+      >
+        <div className="space-y-6">
+          <h2 className="text-3xl font-bold">
+            Recursos para Facilitadores
+          </h2>
+          <Button 
+            href="/resources" 
+            variant="gradient"
+            size="lg"
+          >
+            Descubrir Recursos
+          </Button>
+        </div>
+      </ContentSection>
+
+      {/* Testimonios Preview */}
+      <ContentSection
+        bgColor="bg-gradient-to-b from-white to-blue-50"
+        textColor="text-gray-800"
+        description="Descubre cómo nuestros programas han transformado la manera en que otros facilitan y crean experiencias memorables."
+        imageSrc="/imgs/inicio/074c9c_1e788f438e6c41609e3e3ad57655983f_mv2.jpg"
+        imageAlt="Testimonios de participantes"
+        imagePosition="left"
+        useContainer={false}
+      >
+        <div className="space-y-6">
+          <h2 className="text-3xl font-bold text-blue-800">
+            Testimonios
+          </h2>
+          <Button 
+            href="/testimonios" 
+            variant="primary"
+            size="lg"
+          >
+            Ver Testimonios
+          </Button>
+        </div>
+      </ContentSection>
+      </section>
+    </>
   )
 }

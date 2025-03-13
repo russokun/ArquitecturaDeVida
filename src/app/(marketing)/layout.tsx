@@ -9,10 +9,12 @@ export default function MarketingLayout({
   return (
     <div className="bg-gradient-to-b from-blue-50 to-white">
       <Breadcrumbs />
-
+      
       {/* Marketing common sections */}
+      {children}
+
+      {/* Container solo para el CTA */}
       <div className="container mx-auto px-4">
-        {children}
         <MarketingCta />
       </div>
     </div>

@@ -1,138 +1,176 @@
-import Image from "next/image"
 import ContentSection from "@/components/features/contentSection"
+import CarouselCTA from "@/components/features/carouselCTA"
 import SplitContent from "@/components/features/splitContent"
+import Button from "@/components/common/button"
+
 export const metadata = {
-  title: "Servicios de Facilitación | Arq de Vida",
-  description: "Descubre nuestros servicios de mentoría y facilitación creativa",
+  title: "Servicios | Arq de Vida",
+  description: "Descubre nuestros servicios de facilitación y mentoría creativa",
 }
+
+const carouselSlides = [
+  {
+    question: "¿Quieres transformar la manera en que facilitas tus sesiones?",
+    bgColor: "bg-blue-600",
+    textColor: "text-white"
+  },
+  {
+    question: "¿Buscas herramientas innovadoras para conectar con tu audiencia?",
+    bgColor: "bg-purple-600",
+    textColor: "text-white"
+  },
+  {
+    question: "¿Deseas crear experiencias memorables de aprendizaje?",
+    bgColor: "bg-teal-600",
+    textColor: "text-white"
+  },
+  {
+    question: "¿Te gustaría destacar como facilitador creativo?",
+    bgColor: "bg-pink-600",
+    textColor: "text-white"
+  }
+]
 
 export default function ServicesPage() {
   return (
-    <div className="py-12">
-      {/* Hero Section */}
-      <section className="text-center mb-16">
-        <h1 className="text-4xl md:text-5xl font-bold text-gray-800 mb-6">
-          Servicios de Facilitación Creativa
-        </h1>
-        <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-          Transforma tu manera de facilitar y crear experiencias memorables
-        </p>
-      </section>
-
-      {/* Services Grid */}
-      <div className="grid md:grid-cols-2 gap-8 mb-16">
-        {/* Mentoría Individual */}
-        <div className="bg-white rounded-2xl shadow-lg p-8">
-          <h3 className="text-2xl font-bold text-gray-800 mb-4">
-            Mentoría Individual
-          </h3>
-          <p className="text-gray-600 mb-6">
-            Sesiones personalizadas para desarrollar tus habilidades como facilitador
-            y encontrar tu estilo único.
-          </p>
-          <ul className="space-y-3 text-gray-600">
-            <li className="flex items-center">
-              <svg className="w-5 h-5 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                <path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/>
-              </svg>
-              4 sesiones mensuales
-            </li>
-            <li className="flex items-center">
-              <svg className="w-5 h-5 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                <path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/>
-              </svg>
-              Plan personalizado
-            </li>
-            <li className="flex items-center">
-              <svg className="w-5 h-5 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                <path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/>
-              </svg>
-              Recursos exclusivos
-            </li>
-          </ul>
-        </div>
-
-        {/* Talleres Grupales */}
-        <div className="bg-white rounded-2xl shadow-lg p-8">
-          <h3 className="text-2xl font-bold text-gray-800 mb-4">
-            Talleres Grupales
-          </h3>
-          <p className="text-gray-600 mb-6">
-            Experiencias colaborativas para aprender y compartir con otros facilitadores
-            en un ambiente creativo.
-          </p>
-          <ul className="space-y-3 text-gray-600">
-            <li className="flex items-center">
-              <svg className="w-5 h-5 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                <path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/>
-              </svg>
-              Grupos reducidos
-            </li>
-            <li className="flex items-center">
-              <svg className="w-5 h-5 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                <path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/>
-              </svg>
-              Material didáctico
-            </li>
-            <li className="flex items-center">
-              <svg className="w-5 h-5 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                <path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/>
-              </svg>
-              Certificado de participación
-            </li>
-          </ul>
-        </div>
-      </div>
-
-      {/* Metodología Section */}
+    <div>
+      {/* Primera Sección */}
       <ContentSection
-        bgColor="bg-blue-50"
+        bgColor="bg-gradient-to-b from-blue-50 to-white"
         textColor="text-gray-800"
-        description="Nuestra metodología se basa en la experiencia práctica y el aprendizaje activo. Trabajamos juntos para desarrollar tus habilidades de facilitación de manera creativa y efectiva."
-        decorativeElements={true}
-        decorativeShapes={{
-          circles: true,
-          rectangles: false,
-          customShapes: false,
-        }}
-        decorativeColors={{
-          primary: "bg-blue-200",
-          secondary: "bg-yellow-200",
-          tertiary: "bg-pink-200",
-        }}
+        description="Transformamos la manera en que facilitas y creas experiencias de aprendizaje. A través de metodologías creativas y herramientas innovadoras, te ayudamos a desarrollar tu potencial como facilitador."
+        imageSrc="/imgs/servicios/11062b_5c779c886e374c01925a171975b0e453mv2_d_6720_4480_s_4_2.jpg"
+        imageAlt="Facilitación creativa en acción"
+        buttonText="Descubre más"
+        buttonUrl="#services"
+        buttonGradient={true}
+        useContainer={false}
+        imagePosition="left"
       />
-      {/* Mentoría uno a uno */}
-            <SplitContent
-              imagePosition="left"
-              imageSrc="/imgs/inicio/IMG_2463.jpg"
-              imageAlt="Espacio de trabajo creativo"
-              title="MENTORIA UNO A UNO"
-              titleClassName="text-black"
-              contentBg="bg-gray-200"
-              content={
-                <>
-                  <p className="text-lg text-gray-700">
-                    ¿Estás buscando llevar tus habilidades de facilitación creativa al siguiente nivel? Únete a mi programa de
-                    mentoría uno a uno y aprende cómo crear experiencias creativas y memorables para tus participantes
-                    utilizando la lúdica y la gamificación.
-                  </p>
-      
-                  <p className="text-lg text-gray-700">
-                    En este programa, trabajaré contigo de forma personalizada para ayudarte a alcanzar tus objetivos y
-                    mejorar tus habilidades de facilitación. Aprenderás cómo utilizar técnicas innovadoras para diseñar
-                    talleres y sesiones que involucren y entusiasmen a tus participantes, permitiéndoles explorar su
-                    creatividad de una manera única.
-                  </p>
-      
-                  <p className="text-lg text-gray-700">
-                    No importa si eres un facilitador experimentado o si estás comenzando tu carrera, mi programa de mentoría
-                    uno a uno te ayudará a alcanzar tus objetivos y mejorar tus habilidades de facilitación creativa.
-                  </p>
-                </>
-              }
-              buttonText="SABER MÁS"
-              buttonClassName="bg-gray-600 hover:bg-red-700"
-            />
+
+      {/* Sección de Preguntas */}
+      <CarouselCTA slides={carouselSlides} />
+
+      {/* Servicios Principales */}
+      <SplitContent
+        imagePosition="left"
+        imageSrc="/imgs/servicios/IMG_2408.jpg"
+        imageAlt="Mentoría Individual"
+        title="Mentoría Individual"
+        content={
+          <p className="text-lg text-gray-700">
+            Sesiones personalizadas donde trabajamos en desarrollar tus habilidades
+            como facilitador, encontrar tu estilo único y crear experiencias memorables.
+          </p>
+        }
+        buttonText="Más información"
+        buttonClassName="bg-blue-600 hover:bg-blue-700"
+        className="w-full"
+      />
+
+      <SplitContent
+        imagePosition="right"
+        imageSrc="/imgs/servicios/IMG_2536.jpg"
+        imageAlt="Programas Grupales"
+        title="Programas Grupales"
+        content={
+          <p className="text-lg text-gray-700">
+            Experiencias colaborativas donde aprendes y compartes con otros facilitadores,
+            enriqueciendo tu práctica a través del intercambio y la retroalimentación.
+          </p>
+        }
+        buttonText="Conoce más"
+        buttonClassName="bg-purple-600 hover:bg-purple-700"
+        className="w-full"
+      />
+
+      <SplitContent
+        imagePosition="left"
+        imageSrc="/imgs/servicios/IMG_2548.jpg"
+        imageAlt="Talleres Especializados"
+        title="Talleres Especializados"
+        content={
+          <p className="text-lg text-gray-700">
+            Formación intensiva en técnicas específicas de facilitación, desde el uso
+            de herramientas visuales hasta la facilitación de procesos creativos.
+          </p>
+        }
+        buttonText="Explorar talleres"
+        buttonClassName="bg-teal-600 hover:bg-teal-700"
+        className="w-full"
+      />
+
+      <SplitContent
+        imagePosition="right"
+        imageSrc="/imgs/servicios/11062b_67e1e0af28024fc7aa00ee870b6b8d1emv2.jpg"
+        imageAlt="Consultoría de Diseño"
+        title="Consultoría de Diseño"
+        content={
+          <p className="text-lg text-gray-700">
+            Asesoría especializada para diseñar experiencias de aprendizaje efectivas
+            y memorables, adaptadas a las necesidades de tu audiencia.
+          </p>
+        }
+        buttonText="Consultar"
+        buttonClassName="bg-pink-600 hover:bg-pink-700"
+        className="w-full"
+      />
+
+      <SplitContent
+        imagePosition="left"
+        imageSrc="/imgs/servicios/11062b_53fd61938d2c44c798c23d147449520fmv2.jpg"
+        imageAlt="Certificación"
+        title="Certificación en Facilitación Creativa"
+        content={
+          <p className="text-lg text-gray-700">
+            Programa completo de formación para obtener tu certificación como
+            facilitador creativo, con herramientas prácticas y mentoría continua.
+          </p>
+        }
+        buttonText="Más detalles"
+        buttonClassName="bg-indigo-600 hover:bg-indigo-700"
+        className="w-full"
+      />
+
+      {/* Sección de Texto */}
+      <ContentSection
+        bgColor="bg-gray-50"
+        textColor="text-gray-800"
+        description="Nuestra metodología se basa en la experiencia práctica y el aprendizaje activo. Trabajamos con herramientas probadas y técnicas innovadoras para asegurar que cada participante desarrolle su máximo potencial como facilitador."
+        useContainer={false}
+      />
+
+      {/* Penúltima Sección */}
+      <ContentSection
+        bgColor="bg-white"
+        textColor="text-gray-800"
+        description="Únete a nuestra comunidad de facilitadores creativos y descubre cómo transformar tus sesiones en experiencias memorables."
+        imageSrc="/imgs/servicios/nsplsh_4428397322dd40299b8f3564689ea277mv2.jpg"
+        imageAlt="Comunidad de facilitadores"
+        useContainer={false}
+        imagePosition="right"
+      />
+
+      {/* Última Sección con Botón */}
+      <ContentSection
+        bgColor="bg-blue-900"
+        textColor="text-white"
+        description="¿Listo para llevar tu facilitación al siguiente nivel?"
+        imageSrc="/imgs/servicios/nsplsh_32221802900949f5bba2c2c307eaac5bmv2.jpg"
+        imageAlt="Facilitación avanzada"
+        useContainer={false}
+        imagePosition="left"
+      >
+        <div className="mt-8 text-center">
+          <Button
+            variant="gradient"
+            size="lg"
+            href="/contact"
+          >
+            Agenda una llamada de descubrimiento
+          </Button>
+        </div>
+      </ContentSection>
     </div>
   )
 }

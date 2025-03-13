@@ -11,8 +11,10 @@ export default function Breadcrumbs() {
         return 'Servicios'
       case '/resources':
         return 'Recursos'
+      case '/testimonios':
+        return 'Testimonios'
       case '/about':
-        return 'Sobre Mí'  // Texto en español pero matching con la ruta en inglés
+        return 'Sobre Mí'
       default:
         return ''
     }
