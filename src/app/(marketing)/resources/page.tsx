@@ -49,14 +49,11 @@ export default function ResourcesPage() {
         imagePosition="right"
         imageSrc="/imgs/inicio/IMG_2372.jpg"
         imageAlt="Rueda del Facilitador Creativo"
-        title="Rueda del Facilitador Creativo"
+        title="SET DE TARJETAS DE AFIRMACIONES"
         content={
           <div className="space-y-4">
             <p className="text-lg text-gray-700">
-              Descubre las competencias esenciales que todo facilitador necesita dominar para crear experiencias memorables y transformadoras.
-            </p>
-            <p className="text-lg text-gray-700">
-              Esta herramienta gratuita te ayudará a identificar tus fortalezas y áreas de mejora en tu camino hacia la excelencia en facilitación.
+            ¿Quieres potenciar tu creatividad y convertirte en un experto en la creación de experiencias memorables? Descarga nuestro set de tarjetas con afirmaciones, una herramienta útil y práctica que te ayudará a estimular tu pensamiento creativo y a diseñar experiencias inolvidables para tus participantes. Con estas tarjetas, podrás explorar diferentes enfoques y perspectivas, y crear experiencias que dejen una huella imborrable en la mente de tus participantes. ¡Descarga ahora nuestro set de tarjetas con afirmaciones y dale un impulso a tu creatividad!
             </p>
           </div>
         }
@@ -70,7 +67,7 @@ export default function ResourcesPage() {
         imagePosition="left"
         imageSrc="/imgs/inicio/IMG_2463.jpg"
         imageAlt="Videos de Formación"
-        title="Videos de Formación"
+        title="LA VIDA EN METÁFORAS"
         content={
           <div className="space-y-6">
             <p className="text-lg text-gray-700">

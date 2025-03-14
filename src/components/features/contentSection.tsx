@@ -2,6 +2,7 @@
 
 import Image from 'next/image'
 import Link from 'next/link'
+import ClientGradient from './clientGradient'
 
 interface DecorativeShapes {
   circles?: boolean
@@ -16,9 +17,14 @@ interface DecorativeColors {
 }
 
 interface ContentSectionProps {
-  bgColor: string
+  bgColor?: string
+  bgGradient?: string
+  bgImage?: string
+  bgImageOverlay?: string
+  minHeight?: string
   textColor: string
   description?: string
+  descriptionAsChild?: boolean
   imageSrc?: string
   imageAlt?: string
   imagePosition?: 'left' | 'right'
@@ -30,12 +36,27 @@ interface ContentSectionProps {
   decorativeColors?: DecorativeColors
   children?: React.ReactNode
   useContainer?: boolean
+  contentWidth?: 'full' | 'half'
+  contentAlign?: 'left' | 'right' | 'center'
+  verticalAlign?: 'top' | 'center' | 'bottom'
+  contentMargin?: {
+    top?: string
+    right?: string
+    bottom?: string
+    left?: string
+  }
+  useScrollEffect?: boolean
 }
 
 export default function ContentSection({
   bgColor,
+  bgGradient,
+  bgImage,
+  bgImageOverlay = 'bg-black/40',
+  minHeight = 'min-h-screen',
   textColor,
   description,
+  descriptionAsChild = false,
   imageSrc,
   imageAlt,
   imagePosition = 'right',
@@ -47,6 +68,11 @@ export default function ContentSection({
   decorativeColors,
   children,
   useContainer = true,
+  contentWidth = 'full',
+  contentAlign = 'center',
+  verticalAlign = 'center',
+  contentMargin,
+  useScrollEffect = false,
 }: ContentSectionProps) {
   const renderDecorativeElements = () => {
     if (!decorativeElements || !decorativeShapes || !decorativeColors) return null
@@ -69,85 +95,146 @@ export default function ContentSection({
     )
   }
 
-  const ContentSection = () => (
-    <div 
-      style={{ flex: '1 0 50%' }}
-      className={`${textColor} z-10 space-y-6 text-center md:text-left order-1 lg:order-none`}
-    >
-      {description && (
-        <p className="text-lg md:text-xl leading-relaxed">{description}</p>
-      )}
+  const getVerticalAlignClass = () => {
+    switch (verticalAlign) {
+      case 'top':
+        return 'items-start pt-16'
+      case 'bottom':
+        return 'items-end pb-16'
+      default:
+        return 'items-center'
+    }
+  }
 
-      {children}
+  const getMarginStyle = () => {
+    if (!contentMargin) return {}
+    return {
+      marginTop: contentMargin.top || '',
+      marginRight: contentMargin.right || '',
+      marginBottom: contentMargin.bottom || '',
+      marginLeft: contentMargin.left || '',
+    }
+  }
 
-      {buttonText && buttonUrl && !children && (
-        <div className="mt-8">
-          <Link
-            href={buttonUrl}
-            className={`inline-block px-8 py-4 rounded-full font-bold text-white 
-              ${
-                buttonGradient
-                  ? 'bg-gradient-to-r from-cyan-400 to-blue-500 hover:from-cyan-500 hover:to-blue-600'
-                  : 'bg-cyan-400 hover:bg-cyan-500'
-              } 
-              transition-all`}
-          >
-            {buttonText}
-          </Link>
-        </div>
-      )}
+  const DescriptionContent = () => description ? (
+    <div className="space-y-4 max-w-3xl">
+      {description.split('\n').map((line, index) => (
+        <p key={index} className="text-lg md:text-xl lg:text-2xl leading-relaxed">
+          {line}
+        </p>
+      ))}
     </div>
-  )
+  ) : null
 
-  const ImageSection = () => (
-    <div 
-      style={{ flex: '1 0 50%' }}
-      className="relative z-10 order-2 lg:order-none overflow-hidden"
-    >
-      <div className="relative aspect-[4/3] lg:h-full min-h-[300px]">
-        <Image
-          src={imageSrc!}
-          alt={imageAlt || ''}
-          fill
-          className="object-cover rounded-lg"
-          sizes="(max-width: 1024px) 100vw, 50vw"
-        />
+  const MainContent = (
+    <div className={`relative z-10 h-full min-h-[80vh] flex ${getVerticalAlignClass()} w-full`}>
+      <div className={`${useContainer ? 'container mx-auto' : ''} px-4 md:px-8 lg:px-12 w-full`}>
+        <div className={`
+          w-full flex flex-col lg:flex-row items-center gap-8 py-16
+          ${contentAlign === 'right' ? 'lg:justify-end' : 
+            contentAlign === 'left' ? 'lg:justify-start' : 'lg:justify-center'}
+        `}>
+          {imageSrc && imagePosition === 'left' && (
+            <div className={`w-full ${contentWidth === 'half' ? 'lg:w-1/2' : 'lg:w-5/12'}`}>
+              <div className="relative aspect-[16/9] lg:aspect-[4/3]">
+                <Image
+                  src={imageSrc}
+                  alt={imageAlt || ''}
+                  fill
+                  className="object-cover rounded-lg"
+                  sizes="(max-width: 1024px) 100vw, 50vw"
+                />
+              </div>
+            </div>
+          )}
+          
+          <div 
+            className={`
+              ${textColor} space-y-8
+              ${contentWidth === 'half' ? 'w-full lg:w-1/2' : 'w-full lg:w-7/12'}
+              ${contentAlign === 'right' ? 'lg:text-right' : 
+                contentAlign === 'left' ? 'lg:text-left' : 'text-center'}
+            `}
+            style={getMarginStyle()}
+          >
+            {!descriptionAsChild && <DescriptionContent />}
+            {children}
+            {descriptionAsChild && <DescriptionContent />}
+
+            {buttonText && buttonUrl && !children && (
+              <div className="mt-8">
+                <Link
+                  href={buttonUrl}
+                  className={`
+                    inline-block px-8 py-4 text-lg rounded-full font-bold text-white
+                    ${buttonGradient
+                      ? 'bg-gradient-to-r from-cyan-400 to-blue-500 hover:from-cyan-500 hover:to-blue-600'
+                      : 'bg-cyan-400 hover:bg-cyan-500'
+                    } 
+                    transition-all
+                  `}
+                >
+                  {buttonText}
+                </Link>
+              </div>
+            )}
+          </div>
+          
+          {imageSrc && imagePosition === 'right' && (
+            <div className={`w-full ${contentWidth === 'half' ? 'lg:w-1/2' : 'lg:w-5/12'}`}>
+              <div className="relative aspect-[16/9] lg:aspect-[4/3]">
+                <Image
+                  src={imageSrc}
+                  alt={imageAlt || ''}
+                  fill
+                  className="object-cover rounded-lg"
+                  sizes="(max-width: 1024px) 100vw, 50vw"
+                />
+              </div>
+            </div>
+          )}
+        </div>
       </div>
     </div>
   )
 
-  const Content = () => (
-    <div className="w-full flex flex-col lg:flex-row items-center gap-8">
-      {imageSrc ? (
-        imagePosition === 'left' ? (
-          <>
-            <ImageSection />
-            <ContentSection />
-          </>
-        ) : (
-          <>
-            <ContentSection />
-            <ImageSection />
-          </>
-        )
-      ) : (
-        <div className="max-w-3xl mx-auto">
-          <ContentSection />
+  const Background = bgImage ? (
+    <>
+      <div className="absolute inset-0 z-0">
+        <div className="relative w-full h-full">
+          <Image
+            src={bgImage}
+            alt="Background"
+            fill
+            className="object-cover"
+            quality={90}
+            sizes="100vw"
+            priority
+          />
         </div>
-      )}
-    </div>
+      </div>
+      <div className={`absolute inset-0 z-0 ${bgImageOverlay}`} />
+    </>
+  ) : null
+
+  const SectionContent = (
+    <>
+      {Background}
+      {decorativeElements && renderDecorativeElements()}
+      {MainContent}
+    </>
   )
 
   return (
-    <section className={`relative ${bgColor} overflow-hidden py-16`}>
-      {decorativeElements && renderDecorativeElements()}
-
-      {useContainer ? (
-        <div className="container mx-auto px-4">
-          <Content />
-        </div>
+    <section className={`relative overflow-hidden ${minHeight}`}>
+      {useScrollEffect ? (
+        <ClientGradient bgColor={bgColor} bgGradient={bgGradient}>
+          {SectionContent}
+        </ClientGradient>
       ) : (
-        <Content />
+        <div style={{ backgroundColor: bgColor || 'white' }} className="relative w-full h-full">
+          {SectionContent}
+        </div>
       )}
     </section>
   )
