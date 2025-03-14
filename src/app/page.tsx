@@ -11,12 +11,12 @@ export default function HomePage() {
         textColor="text-white"
         description={`¿Quieres convertirte en un referente en el mundo de la facilitación y ofrecer experiencias formativas creativas y memorables?\n\n¿Te gustaría ahorrar tiempo y recursos valiosos en tu camino hacia el éxito en la facilitación?\n\nDescarga ahora mismo tu recurso gratuito y aprende cómo la Rueda de las Habilidades del Facilitador Creativo puede ayudarte a destacarte en el mundo de la facilitación`}
         useContainer={false}
-        minHeight="min-h-[85vh]"
+        minHeight="min-h-[80vh]"
         contentWidth="half"
         contentAlign="right"
         verticalAlign="top"
         contentMargin={{
-          right: '10rem',
+          right: '1rem',
           top: '11rem'
         }}
       >
@@ -33,18 +33,17 @@ export default function HomePage() {
 
       {/* About Section */}
       <ContentSection
-        bgColor="bg-white"
-        bgGradient="rgba(254, 243, 199, 1)"  // yellow-100
         useScrollEffect={true}
-        textColor="text-gray-700"
-        imageSrc="/imgs/inicio/IMG_2481.jpg"
+        bgGradient="linear-gradient(135deg, rgba(254, 243, 199, 0.9), rgba(239, 68, 68, 0.6))"
+        textColor="text-white"
+        imageSrc="/imgs/inicio/img2.png"
         imageAlt="Ana Lidia facilitando"
         imagePosition="right"
         useContainer={false}
         contentWidth="half"
         contentAlign="left"
         contentMargin={{
-          left: '8rem'
+          left: '0.5rem'
         }}
       >
         <div className="space-y-8 max-w-2xl">
@@ -52,7 +51,7 @@ export default function HomePage() {
             Soy Ana Lidia
           </h2>
           <p className="text-lg md:text-xl text-gray-700 leading-relaxed">
-          Ayudo a coaches y facilitadores a <span className="font-bold">diseñar y construir</span> sesiones y talleres impactantes que los diferencian de la competencia, y a transmitir su experiencia y conocimientos de una manera memorable y efectiva. Con mi ayuda, fortalecen su confianza y aumentan su reputación como líderes en su campo, lo que les permite atraer y retener a más clientes y lograr el éxito que desean.
+            Ayudo a coaches y facilitadores a <span className="font-bold">diseñar y construir</span> sesiones y talleres impactantes que los diferencian de la competencia, y a transmitir su experiencia y conocimientos de una manera memorable y efectiva. Con mi ayuda, fortalecen su confianza y aumentan su reputación como líderes en su campo, lo que les permite atraer y retener a más clientes y lograr el éxito que desean.
           </p>
           <Button 
             href="/about" 
@@ -66,21 +65,23 @@ export default function HomePage() {
 
       {/* Metodología Section */}
       <ContentSection
-        bgImage="/imgs/inicio/IMG_2372.jpg"
-        bgImageOverlay="bg-blue-900/80"
+        // bgImage="/imgs/inicio/IMG_2372.jpg"
+        // bgImageOverlay="bg-blue-900/80"
         textColor="text-white"
-        description="Mi enfoque se basa en el poder de la creatividad y el juego para generar aprendizajes significativos. Utilizo técnicas innovadoras y herramientas probadas para crear espacios de transformación."
+        description="Te ofrezco un proceso de mentoría y coaching personalizado para que puedas darle valor y autenticidad a tu proyecto y convertirlo en una fuente de satisfacción. Juntos, exploraremos tus fortalezas y debilidades, identificaremos oportunidades de crecimiento y definiremos estrategias para alcanzar tus metas. A través de un espacio conversacional abierto y exploratorio, te brindaré las herramientas y el apoyo necesarios para que puedas lograr el éxito que deseas."
         useContainer={false}
+        minHeight="min-h-fit"
         contentWidth="half"
-        contentAlign="right"
+        contentAlign="center"
         contentMargin={{
-          right: '4rem'
+          right: '2rem',
+          left: '2rem'
         }}
+        useScrollEffect={false}
+        className="bg-hero-animated"
         descriptionAsChild
+        descriptionPosition="before"
       >
-        <h2 className="text-3xl md:text-4xl font-bold">
-          Metodología Única
-        </h2>
         <Button 
           href="/services" 
           variant="gradient"
@@ -90,44 +91,54 @@ export default function HomePage() {
         </Button>
       </ContentSection>
 
-      {/* Programas Section */}
+      {/* Creative Section */}
       <ContentSection
-        bgColor="bg-white"
-        textColor="text-gray-800"
-        description="Descubre nuestros programas especializados diseñados para potenciar tus habilidades como facilitador y crear experiencias únicas."
-        imageSrc="/imgs/inicio/IMG_2463.jpg"
-        imageAlt="Programas de facilitación"
+        bgImage="/imgs/inicio/fondo2.jpg"
+        bgImageOverlay="bg-white-900/80"
+        textColor="text-white"
+        imageSrc="/imgs/inicio/img3.png"
+        imageAlt="Diseño y creatividad"
         imagePosition="left"
         useContainer={false}
-        descriptionAsChild
+        minHeight="min-h-fit"
+        contentWidth="half"
+        contentAlign="center"
+        verticalAlign="top"
+        contentMargin={{
+          top: '4rem'
+        }}
       >
-        <div className="space-y-6">
-          <h2 className="text-3xl font-bold text-blue-800">
-            Programas de Formación
-          </h2>
-          <Button 
-            href="/services" 
-            variant="primary"
-            size="lg"
-          >
-            Explorar Programas
-          </Button>
+        <div className="space-y-6 text-center max-w-3xl mx-auto">
+          <p className="text-3xl md:text-4xl lg:text-5xl font-light leading-relaxed tracking-wide">
+            DEJA FLUIR TU CREATIVIDAD…
+          </p>
+          <p className="text-3xl md:text-4xl lg:text-5xl font-light leading-relaxed tracking-wide">
+            SUELTA LAS RIENDAS DE TU IMAGINACIÓN…
+          </p>
+          <p className="text-2xl md:text-3xl lg:text-4xl font-light leading-relaxed mt-8 whitespace-pre-line">
+            {`AL FIN PODRÁS DISEÑAR, CONSTRUIR Y DISFRUTAR EN ESE ESPACIO DE MENTORÍA
+QUE CONECTA
+CON TU ESENCIA.`}
+          </p>
         </div>
       </ContentSection>
 
       {/* Recursos Section */}
       <ContentSection
-        bgImage="/imgs/inicio/IMG_2336.jpg"
-        bgImageOverlay="bg-blue-900/75"
+        bgImage="/imgs/inicio/fondo3.jpg"
+        bgImageOverlay=""
         textColor="text-white"
-        description="Accede a nuestra biblioteca de recursos, herramientas y guías para mejorar tus habilidades de facilitación y crear experiencias memorables."
+        description="Todo proceso creativo requiere que te prepares para esa descarga energética y eso implica que conozcas con cuales recursos cuentas.
+        Para ello tengo para ti mi poderosa guía gratuita de AUTOCONOCIMIENTO."
         useContainer={false}
+        minHeight="min-h-[50vh]"
         contentWidth="half"
         contentAlign="right"
         contentMargin={{
-          right: '4rem'
+          right: '2rem'
         }}
         descriptionAsChild
+        descriptionPosition="before"
       >
         <div className="space-y-6">
           <h2 className="text-3xl font-bold">
@@ -138,35 +149,38 @@ export default function HomePage() {
             variant="gradient"
             size="lg"
           >
-            Descubrir Recursos
+            Quiero Descargarla Ya
           </Button>
         </div>
       </ContentSection>
 
       {/* Testimonios Preview */}
       <ContentSection
-        bgImage="/imgs/inicio/074c9c_1e788f438e6c41609e3e3ad57655983f_mv2.jpg"
+        bgImage="/imgs/inicio/fondo4.jpg"
         bgImageOverlay="bg-black/50"
         textColor="text-white"
-        description="Descubre cómo nuestros programas han transformado la manera en que otros facilitan y crean experiencias memorables."
+        description="¿Estás listo para ahorrar tiempo y recursos valiosos en tu camino hacia el éxito en la facilitación y convertirte en un referente en este campo profesional?
+"
         useContainer={false}
+        minHeight="min-h-fit"
         contentWidth="half"
         contentAlign="left"
         contentMargin={{
-          left: '4rem'
+          left: '2rem'
         }}
         descriptionAsChild
+        descriptionPosition="before"
       >
         <div className="space-y-6">
           <h2 className="text-3xl font-bold">
-            Testimonios
+          ¡Diseñemos y construyámoslo juntos!
           </h2>
           <Button 
             href="/testimonios" 
             variant="gradient"
             size="lg"
           >
-            Ver Testimonios
+            Opciones de servicios
           </Button>
         </div>
       </ContentSection>

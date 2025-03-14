@@ -1,78 +1,66 @@
 'use client'
 
-import { useEffect, useRef, ReactNode, useState } from 'react'
+import { useEffect, useRef, ReactNode } from 'react'
 
 interface ClientGradientProps {
   bgColor?: string
   bgGradient?: string
+  className?: string
   children: ReactNode
 }
 
-export default function ClientGradient({ bgColor, bgGradient, children }: ClientGradientProps) {
+export default function ClientGradient({ bgColor, bgGradient, className, children }: ClientGradientProps) {
   const ref = useRef<HTMLDivElement>(null)
-  const [isMounted, setIsMounted] = useState(false)
 
   useEffect(() => {
-    setIsMounted(true)
-
-    // Solo agregar event listeners después del montaje
     if (!ref.current) return
 
-    const updateGradient = () => {
+    const handleScroll = () => {
       if (!ref.current) return
 
       const rect = ref.current.getBoundingClientRect()
       const viewportHeight = window.innerHeight
       
-      // Calculate distance from the center of the viewport to the center of the element
+      // Calculate visibility based on element's position
       const elementCenter = rect.top + rect.height / 2
       const viewportCenter = viewportHeight / 2
       const distance = Math.abs(elementCenter - viewportCenter)
       
-      // Calculate opacity based on distance (closer = more opaque)
-      const maxDistance = viewportHeight / 1.5
-      const opacity = Math.max(0, Math.min(1, 1 - (distance / maxDistance)))
+      // Make the transition zone larger
+      const maxDistance = viewportHeight
+      let progress = 1 - (distance / maxDistance)
       
-      ref.current.style.setProperty('--scroll-progress', opacity.toString())
+      // Suavizar la transición
+      progress = Math.min(1, Math.max(0.2, progress))
+      
+      ref.current.style.setProperty('--scroll-progress', progress.toString())
     }
 
-    // Initial update
-    updateGradient()
-
-    window.addEventListener('scroll', updateGradient, { passive: true })
-    window.addEventListener('resize', updateGradient, { passive: true })
+    handleScroll()
+    window.addEventListener('scroll', handleScroll, { passive: true })
+    window.addEventListener('resize', handleScroll, { passive: true })
 
     return () => {
-      window.removeEventListener('scroll', updateGradient)
-      window.removeEventListener('resize', updateGradient)
+      window.removeEventListener('scroll', handleScroll)
+      window.removeEventListener('resize', handleScroll)
     }
   }, [])
 
-  return (
-    <div className="relative w-full h-full">
-      {/* Base background */}
-      <div 
-        className="absolute inset-0" 
-        style={{ backgroundColor: bgColor || 'white' }}
-      />
-      
-      {/* Gradient overlay with transition */}
-      <div 
-        ref={ref}
-        className={`
-          absolute inset-0 transition-opacity duration-300
-          ${isMounted ? 'ease-out' : 'opacity-0'}
-        `}
-        style={{
-          backgroundColor: bgGradient || 'transparent',
-          opacity: 'var(--scroll-progress, 0)',
-        }}
-      />
+  const gradientStyle = {
+    backgroundColor: bgColor || 'white',
+    background: bgGradient ? 
+      `linear-gradient(135deg, rgba(254, 243, 199, 0.9), rgba(239, 68, 68, 0.6))` : 
+      bgColor || 'white',
+    opacity: 'var(--scroll-progress, 0.2)',
+  }
 
-      {/* Content */}
-      <div className="relative z-10 h-full">
-        {children}
-      </div>
+  return (
+    <div 
+      ref={ref}
+      className={`absolute inset-0 transition-opacity duration-500 ${className || ''}`}
+      style={gradientStyle}
+    >
+      {children}
     </div>
   )
 }

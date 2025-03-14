@@ -17,6 +17,7 @@ interface DecorativeColors {
 }
 
 interface ContentSectionProps {
+  className?: string
   bgColor?: string
   bgGradient?: string
   bgImage?: string
@@ -25,6 +26,7 @@ interface ContentSectionProps {
   textColor: string
   description?: string
   descriptionAsChild?: boolean
+  descriptionPosition?: 'before' | 'after'
   imageSrc?: string
   imageAlt?: string
   imagePosition?: 'left' | 'right'
@@ -49,6 +51,7 @@ interface ContentSectionProps {
 }
 
 export default function ContentSection({
+  className,
   bgColor,
   bgGradient,
   bgImage,
@@ -57,6 +60,7 @@ export default function ContentSection({
   textColor,
   description,
   descriptionAsChild = false,
+  descriptionPosition = 'after',
   imageSrc,
   imageAlt,
   imagePosition = 'right',
@@ -126,11 +130,38 @@ export default function ContentSection({
     </div>
   ) : null
 
+  const renderContent = () => {
+    if (!descriptionAsChild) {
+      return (
+        <>
+          <DescriptionContent />
+          {children}
+        </>
+      )
+    }
+
+    if (descriptionPosition === 'before') {
+      return (
+        <div className="space-y-8">
+          <DescriptionContent />
+          {children}
+        </div>
+      )
+    }
+
+    return (
+      <div className="space-y-8">
+        {children}
+        <DescriptionContent />
+      </div>
+    )
+  }
+
   const MainContent = (
-    <div className={`relative z-10 h-full min-h-[80vh] flex ${getVerticalAlignClass()} w-full`}>
-      <div className={`${useContainer ? 'container mx-auto' : ''} px-4 md:px-8 lg:px-12 w-full`}>
+    <div className={`w-full h-full flex ${getVerticalAlignClass()}`}>
+      <div className={`${useContainer ? 'container mx-auto' : ''} w-full px-4 md:px-8 lg:px-12`}>
         <div className={`
-          w-full flex flex-col lg:flex-row items-center gap-8 py-16
+          w-full flex flex-col lg:flex-row items-center gap-8 py-12
           ${contentAlign === 'right' ? 'lg:justify-end' : 
             contentAlign === 'left' ? 'lg:justify-start' : 'lg:justify-center'}
         `}>
@@ -157,27 +188,7 @@ export default function ContentSection({
             `}
             style={getMarginStyle()}
           >
-            {!descriptionAsChild && <DescriptionContent />}
-            {children}
-            {descriptionAsChild && <DescriptionContent />}
-
-            {buttonText && buttonUrl && !children && (
-              <div className="mt-8">
-                <Link
-                  href={buttonUrl}
-                  className={`
-                    inline-block px-8 py-4 text-lg rounded-full font-bold text-white
-                    ${buttonGradient
-                      ? 'bg-gradient-to-r from-cyan-400 to-blue-500 hover:from-cyan-500 hover:to-blue-600'
-                      : 'bg-cyan-400 hover:bg-cyan-500'
-                    } 
-                    transition-all
-                  `}
-                >
-                  {buttonText}
-                </Link>
-              </div>
-            )}
+            {renderContent()}
           </div>
           
           {imageSrc && imagePosition === 'right' && (
@@ -200,7 +211,7 @@ export default function ContentSection({
 
   const Background = bgImage ? (
     <>
-      <div className="absolute inset-0 z-0">
+      <div className="absolute inset-0">
         <div className="relative w-full h-full">
           <Image
             src={bgImage}
@@ -213,29 +224,40 @@ export default function ContentSection({
           />
         </div>
       </div>
-      <div className={`absolute inset-0 z-0 ${bgImageOverlay}`} />
+      <div className={`absolute inset-0 ${bgImageOverlay}`} />
     </>
   ) : null
 
-  const SectionContent = (
-    <>
-      {Background}
-      {decorativeElements && renderDecorativeElements()}
-      {MainContent}
-    </>
-  )
-
   return (
-    <section className={`relative overflow-hidden ${minHeight}`}>
+    <section 
+      className={`
+        relative
+        ${minHeight}
+        overflow-hidden
+        flex flex-col
+      `}
+    >
       {useScrollEffect ? (
-        <ClientGradient bgColor={bgColor} bgGradient={bgGradient}>
-          {SectionContent}
-        </ClientGradient>
+        <div className="absolute inset-0">
+          <div className="absolute inset-0" style={{ backgroundColor: bgColor || 'white' }} />
+          <ClientGradient 
+            bgColor={bgColor} 
+            bgGradient={bgGradient}
+            className={className}
+          >
+            {Background}
+          </ClientGradient>
+        </div>
       ) : (
-        <div style={{ backgroundColor: bgColor || 'white' }} className="relative w-full h-full">
-          {SectionContent}
+        <div className={`absolute inset-0 ${className || ''}`} style={{ backgroundColor: bgColor || 'white' }}>
+          {Background}
         </div>
       )}
+      
+      <div className="relative z-10 flex-grow flex">
+        {decorativeElements && renderDecorativeElements()}
+        {MainContent}
+      </div>
     </section>
   )
 }
