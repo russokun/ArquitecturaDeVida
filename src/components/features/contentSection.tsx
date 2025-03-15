@@ -1,5 +1,4 @@
 'use client'
-
 import { ReactNode, useEffect, useRef } from 'react'
 import Image from 'next/image'
 
@@ -145,7 +144,7 @@ export default function ContentSection({
     </div>
   )
 
-  const ImageContainer = ({ position }: { position: 'left' | 'right' }) => (
+  const ImageContainer = ({  }: { position: 'left' | 'right' }) => (
     <div className={`w-full lg:w-1/2 relative flex items-end ${imageHeight}`}>
       <Image
         src={imageSrc!}

@@ -25,7 +25,7 @@ type SplitContentProps = {
 
 export default function SplitContent({
   imagePosition = "left",
-  minHeight = "min-h-[600px]",
+  minHeight = "",
   imageSrc,
   imageAlt,
   imagePriority = false,

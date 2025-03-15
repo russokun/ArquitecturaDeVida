@@ -1,6 +1,4 @@
-import Image from "next/image"
 import SplitContent from "@/components/features/splitContent"
-import ContentSection from "@/components/features/contentSection"
 import VideoGallery from "@/components/features/videoGallery"
 
 export const metadata = {

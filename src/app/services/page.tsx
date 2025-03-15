@@ -1,5 +1,4 @@
 import Image from "next/image"
-import ContentSection from "@/components/features/contentSection"
 import CarouselCTA from "@/components/features/carouselCTA"
 import SplitContent from "@/components/features/splitContent"
 import Button from "@/components/common/button"
