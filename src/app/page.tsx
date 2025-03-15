@@ -1,6 +1,6 @@
 import ContentSection from "@/components/features/contentSection"
 import Button from "@/components/common/button"
-
+import TestimonialPreview from "@/components/features/testimonialPreview"
 export default function HomePage() {
   return (
     <>
@@ -26,13 +26,13 @@ export default function HomePage() {
         imageHeight=" h-[500px] lg:h-[800px]"
       >
         <div className="space-y-6 px-4 lg:px-0 max-w-xl mx-auto mt-10">
-          <p className="whitespace-pre-wrap text-base md:text-xl lg:text-2xl xl:text-3xl font-bold">
+          <p className="whitespace-pre-wrap text-base md:text-xl lg:text-2xl xl:text-3xl">
             ¿Quieres convertirte en un referente en el mundo de la facilitación y ofrecer experiencias formativas creativas y memorables?
           </p>
-          <p className="text-base md:text-xl lg:text-2xl xl:text-3xl font-bold">
+          <p className="text-base md:text-xl lg:text-2xl xl:text-3xl">
             ¿Te gustaría ahorrar tiempo y recursos valiosos en tu camino hacia el éxito en la facilitación?
           </p>
-          <p className="text-base md:text-xl lg:text-2xl xl:text-3xl font-bold">
+          <p className="text-base md:text-xl lg:text-2xl xl:text-3xl">
             Descarga ahora mismo tu recurso gratuito y aprende cómo la Rueda de las Habilidades del Facilitador Creativo puede ayudarte a destacarte en el mundo de la facilitación
           </p>
           <div className="text-center">
@@ -175,7 +175,7 @@ CON TU ESENCIA.`}
         Para ello tengo para ti mi poderosa guía gratuita de AUTOCONOCIMIENTO.
           </p>
           <div>
-        <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-8">
+        <h2 className="text-2xl md:text-3xl lg:text-4xl mb-8">
           Recursos para Facilitadores
         </h2>
         <Button 
@@ -209,7 +209,7 @@ CON TU ESENCIA.`}
             ¿Estás listo para ahorrar tiempo y recursos valiosos en tu camino hacia el éxito en la facilitación y convertirte en un referente en este campo profesional?
           </p>
           <div>
-            <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-8">
+            <h2 className="text-2xl md:text-3xl lg:text-4xl mb-8">
               ¡Diseñemos y construyámoslo juntos!
             </h2>
             <Button 
@@ -223,6 +223,9 @@ CON TU ESENCIA.`}
           </div>
         </div>
       </ContentSection>
-    </>
+
+      {/* Testimoniales */}
+      <TestimonialPreview />
+   </>
   )
 }

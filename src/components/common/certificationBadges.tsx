@@ -9,37 +9,37 @@ export default function CertificationBadges() {
         <Image
           src="/imgs/common/img1.jpg"
           alt="Certificación"
-          width={150}
-          height={100}
-          className="object-contain"
+          width={120}
+          height={120}
+          className="rounded-full object-cover"
         />
         <Image
           src="/imgs/common/img2.jpg"
           alt="Certificación"
-          width={150}
-          height={100}
-          className="object-contain"
+          width={120}
+          height={120}
+          className="rounded-full object-cover"
         />
         <Image
           src="/imgs/common/img3.jpg"
           alt="Certificación"
-          width={150}
-          height={100}
-          className="object-contain"
+          width={120}
+          height={120}
+          className="rounded-full object-cover"
         />
         <Image
           src="/imgs/common/img4.jpg"
           alt="Certificación"
-          width={150}
-          height={100}
-          className="object-contain"
+          width={120}
+          height={120}
+          className="rounded-full object-cover"
         />
         <Image
           src="/imgs/common/img5.jpg"
           alt="Certificación"
-          width={150}
-          height={100}
-          className="object-contain"
+          width={120}
+          height={120}
+          className="rounded-full object-cover"
         />
       </div>
     </div>

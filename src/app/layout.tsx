@@ -3,6 +3,8 @@ import "./globals.css"
 import Footer from "@/components/common/footer"
 import Navbar from "@/components/common/navbar"
 import CertificationBadges from "@/components/common/certificationBadges"
+import WhatsAppButton from "@/components/common/whatsAppButton"
+import SocialSidebar from "@/components/common/socialSidebar"
 
 export const metadata: Metadata = {
   title: "Arq de Vida",
@@ -12,13 +14,15 @@ export const metadata: Metadata = {
       {
         url: "/imgs/common/favicon.png",
         href: "/imgs/common/favicon.png",
+        sizes: "512x512", // Aumentado el tamaño del favicon
+        type: "image/png",
       }
     ],
     shortcut: ["/imgs/common/favicon.png"],
     apple: [
       {
         url: "/imgs/common/favicon.png",
-        sizes: "180x180",
+        sizes: "512x512", // Aumentado el tamaño para Apple
         type: "image/png",
       }
     ],
@@ -32,29 +36,16 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="es">
-      <head>
-        <title>Arq de Vida</title>
-        <meta
-          name="description"
-          content="Facilitación y diseño de experiencias transformadoras"
-        />
-        <link rel="icon" href="/src/app/favicon.ico" sizes="any" />
-        <link rel="manifest" href="/manifest.json" />
-        
-        <meta name="theme-color" content="#ffffff" />
-        <meta
-          name="viewport"
-          content="width=device-width, initial-scale=1.0"
-        />
-      </head>
-      <body className="font-sans">
+    <html lang="es" className="overflow-x-hidden">
+      <body className="font-sans overflow-x-hidden w-screen max-w-[100vw]">
         <Navbar />
-        <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
+        <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white overflow-x-hidden">
           {children}
           <CertificationBadges />
           <Footer />
         </div>
+        <WhatsAppButton />
+        <SocialSidebar />
       </body>
     </html>
   )
