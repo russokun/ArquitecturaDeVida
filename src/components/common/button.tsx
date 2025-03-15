@@ -1,55 +1,49 @@
 'use client'
 
-import { ReactNode } from 'react'
+import { ButtonHTMLAttributes } from 'react'
 import Link from 'next/link'
 
-interface ButtonProps {
-  children: ReactNode
-  href?: string
+interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: 'primary' | 'secondary' | 'gradient'
   size?: 'sm' | 'md' | 'lg'
+  href?: string
   className?: string
-  onClick?: () => void
 }
 
 export default function Button({
   children,
-  href,
   variant = 'primary',
   size = 'md',
+  href,
   className = '',
-  onClick,
+  ...props
 }: ButtonProps) {
   const baseStyles = 'inline-flex items-center justify-center font-medium rounded-full transition-all duration-300'
   
-  const variants = {
-    primary: 'bg-blue-600 hover:bg-blue-700 text-white',
-    secondary: 'bg-gray-200 hover:bg-gray-300 text-gray-800',
-    gradient: 'bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-700 hover:to-cyan-600 text-white',
+  const variantStyles = {
+    primary: 'bg-blue-600 text-white hover:bg-blue-700',
+    secondary: 'bg-gray-200 text-gray-800 hover:bg-gray-300',
+    gradient: 'bg-gradient-to-r from-blue-600 to-cyan-500 text-white hover:from-blue-700 hover:to-cyan-600'
   }
 
-  const sizes = {
+  const sizeStyles = {
     sm: 'px-4 py-2 text-sm',
-    md: 'px-6 py-3 text-base',
-    lg: 'px-8 py-4 text-lg',
+    md: 'px-6 py-2.5 text-base',
+    lg: 'px-8 py-3 text-lg'
   }
 
-  const buttonStyles = `${baseStyles} ${variants[variant]} ${sizes[size]} ${className}`
+  const styles = `${baseStyles} ${variantStyles[variant]} ${sizeStyles[size]} ${className}`
 
   if (href) {
     return (
-      <Link href={href} className={buttonStyles}>
+      <Link href={href} className={styles}>
         {children}
       </Link>
     )
   }
 
   return (
-    <button 
-      className={buttonStyles}
-      onClick={onClick}
-      type="button"
-    >
+    <button {...props} className={styles}>
       {children}
     </button>
   )

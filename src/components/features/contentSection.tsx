@@ -1,43 +1,24 @@
 'use client'
 
+import { ReactNode, useEffect, useRef } from 'react'
 import Image from 'next/image'
-import Link from 'next/link'
-import ClientGradient from './clientGradient'
-
-interface DecorativeShapes {
-  circles?: boolean
-  rectangles?: boolean
-  customShapes?: boolean
-}
-
-interface DecorativeColors {
-  primary: string
-  secondary: string
-  tertiary: string
-}
 
 interface ContentSectionProps {
-  className?: string
+  children?: ReactNode
   bgColor?: string
   bgGradient?: string
   bgImage?: string
   bgImageOverlay?: string
-  minHeight?: string
-  textColor: string
+  textColor?: string
   description?: string
-  descriptionAsChild?: boolean
-  descriptionPosition?: 'before' | 'after'
   imageSrc?: string
   imageAlt?: string
   imagePosition?: 'left' | 'right'
   buttonText?: string
   buttonUrl?: string
   buttonGradient?: boolean
-  decorativeElements?: boolean
-  decorativeShapes?: DecorativeShapes
-  decorativeColors?: DecorativeColors
-  children?: React.ReactNode
   useContainer?: boolean
+  minHeight?: string
   contentWidth?: 'full' | 'half'
   contentAlign?: 'left' | 'right' | 'center'
   verticalAlign?: 'top' | 'center' | 'bottom'
@@ -48,215 +29,192 @@ interface ContentSectionProps {
     left?: string
   }
   useScrollEffect?: boolean
+  className?: string
+  descriptionAsChild?: boolean
+  descriptionPosition?: 'before' | 'after'
+  imageStyle?: string
+  orderImageFirst?: boolean
+  imageHeight?: string
 }
 
 export default function ContentSection({
-  className,
-  bgColor,
+  children,
+  bgColor = 'bg-white',
   bgGradient,
   bgImage,
-  bgImageOverlay = 'bg-black/40',
-  minHeight = 'min-h-screen',
-  textColor,
+  bgImageOverlay,
+  textColor = 'text-gray-900',
   description,
-  descriptionAsChild = false,
-  descriptionPosition = 'after',
   imageSrc,
   imageAlt,
   imagePosition = 'right',
   buttonText,
   buttonUrl,
   buttonGradient,
-  decorativeElements,
-  decorativeShapes,
-  decorativeColors,
-  children,
   useContainer = true,
+  minHeight = 'min-h-[600px]',
   contentWidth = 'full',
-  contentAlign = 'center',
+  contentAlign = 'left',
   verticalAlign = 'center',
   contentMargin,
   useScrollEffect = false,
+  className = '',
+  descriptionAsChild = false,
+  descriptionPosition = 'after',
+  imageStyle = 'object-cover',
+  orderImageFirst = false,
+  imageHeight = 'h-[600px]'
 }: ContentSectionProps) {
-  const renderDecorativeElements = () => {
-    if (!decorativeElements || !decorativeShapes || !decorativeColors) return null
+  const sectionRef = useRef<HTMLDivElement>(null)
 
-    return (
-      <>
-        {decorativeShapes.circles && (
-          <>
-            <div className={`absolute right-20 top-10 w-32 h-32 rounded-full ${decorativeColors.primary} opacity-20`}></div>
-            <div className={`absolute left-40 bottom-20 w-24 h-24 rounded-full ${decorativeColors.secondary} opacity-30`}></div>
-          </>
-        )}
-        {decorativeShapes.rectangles && (
-          <>
-            <div className={`absolute left-10 top-20 w-20 h-20 transform rotate-45 ${decorativeColors.tertiary} opacity-20`}></div>
-            <div className={`absolute right-40 bottom-10 w-16 h-16 ${decorativeColors.primary} opacity-25`}></div>
-          </>
-        )}
-      </>
-    )
-  }
+  useEffect(() => {
+    if (!useScrollEffect) return
 
-  const getVerticalAlignClass = () => {
-    switch (verticalAlign) {
-      case 'top':
-        return 'items-start pt-16'
-      case 'bottom':
-        return 'items-end pb-16'
-      default:
-        return 'items-center'
-    }
-  }
+    const section = sectionRef.current
+    if (!section) return
 
-  const getMarginStyle = () => {
-    if (!contentMargin) return {}
-    return {
-      marginTop: contentMargin.top || '',
-      marginRight: contentMargin.right || '',
-      marginBottom: contentMargin.bottom || '',
-      marginLeft: contentMargin.left || '',
-    }
-  }
+    const handleScroll = () => {
+      const rect = section.getBoundingClientRect()
+      const isVisible = rect.top < window.innerHeight && rect.bottom >= 0
 
-  const DescriptionContent = () => description ? (
-    <div className="space-y-4 max-w-3xl">
-      {description.split('\n').map((line, index) => (
-        <p key={index} className="text-lg md:text-xl lg:text-2xl leading-relaxed">
-          {line}
-        </p>
-      ))}
-    </div>
-  ) : null
-
-  const renderContent = () => {
-    if (!descriptionAsChild) {
-      return (
-        <>
-          <DescriptionContent />
-          {children}
-        </>
-      )
+      if (isVisible) {
+        section.classList.add('scroll-gradient-active')
+      } else {
+        section.classList.remove('scroll-gradient-active')
+      }
     }
 
-    if (descriptionPosition === 'before') {
-      return (
-        <div className="space-y-8">
-          <DescriptionContent />
-          {children}
-        </div>
-      )
-    }
+    window.addEventListener('scroll', handleScroll)
+    handleScroll()
 
-    return (
-      <div className="space-y-8">
-        {children}
-        <DescriptionContent />
-      </div>
-    )
+    return () => {
+      window.removeEventListener('scroll', handleScroll)
+    }
+  }, [useScrollEffect])
+
+  const verticalAlignClass = {
+    top: 'items-start',
+    center: 'items-center',
+    bottom: 'items-end'
+  }[verticalAlign]
+
+  const alignClass = {
+    left: 'text-left',
+    right: 'text-right',
+    center: 'text-center'
+  }[contentAlign]
+
+  const marginStyles = {
+    marginTop: contentMargin?.top || '0',
+    marginRight: contentMargin?.right || '0',
+    marginBottom: contentMargin?.bottom || '0',
+    marginLeft: contentMargin?.left || '0',
   }
 
-  const MainContent = (
-    <div className={`w-full h-full flex ${getVerticalAlignClass()}`}>
-      <div className={`${useContainer ? 'container mx-auto' : ''} w-full px-4 md:px-8 lg:px-12`}>
-        <div className={`
-          w-full flex flex-col lg:flex-row items-center gap-8 py-12
-          ${contentAlign === 'right' ? 'lg:justify-end' : 
-            contentAlign === 'left' ? 'lg:justify-start' : 'lg:justify-center'}
-        `}>
-          {imageSrc && imagePosition === 'left' && (
-            <div className={`w-full ${contentWidth === 'half' ? 'lg:w-1/2' : 'lg:w-5/12'}`}>
-              <div className="relative aspect-[16/9] lg:aspect-[4/3]">
-                <Image
-                  src={imageSrc}
-                  alt={imageAlt || ''}
-                  fill
-                  className="object-cover rounded-lg"
-                  sizes="(max-width: 1024px) 100vw, 50vw"
-                />
-              </div>
-            </div>
-          )}
-          
-          <div 
-            className={`
-              ${textColor} space-y-8
-              ${contentWidth === 'half' ? 'w-full lg:w-1/2' : 'w-full lg:w-7/12'}
-              ${contentAlign === 'right' ? 'lg:text-right' : 
-                contentAlign === 'left' ? 'lg:text-left' : 'text-center'}
-            `}
-            style={getMarginStyle()}
-          >
-            {renderContent()}
-          </div>
-          
-          {imageSrc && imagePosition === 'right' && (
-            <div className={`w-full ${contentWidth === 'half' ? 'lg:w-1/2' : 'lg:w-5/12'}`}>
-              <div className="relative aspect-[16/9] lg:aspect-[4/3]">
-                <Image
-                  src={imageSrc}
-                  alt={imageAlt || ''}
-                  fill
-                  className="object-cover rounded-lg"
-                  sizes="(max-width: 1024px) 100vw, 50vw"
-                />
-              </div>
-            </div>
-          )}
-        </div>
-      </div>
+  const ContentWrapper = () => (
+    <div 
+      className={`
+        ${contentWidth === 'half' ? 'w-full lg:w-1/2' : 'w-full'} 
+        ${alignClass}
+        relative z-10
+        flex flex-col ${verticalAlignClass} justify-center
+      `}
+      style={marginStyles}
+    >
+      {descriptionAsChild && descriptionPosition === 'before' && description && (
+        <p className={`mb-8 whitespace-pre-line ${textColor}`}>{description}</p>
+      )}
+      {children}
+      {descriptionAsChild && descriptionPosition === 'after' && description && (
+        <p className={`mt-8 whitespace-pre-line ${textColor}`}>{description}</p>
+      )}
+      {buttonText && buttonUrl && (
+        <a 
+          href={buttonUrl}
+          className={`
+            inline-block px-8 py-3 mt-8 rounded-full font-medium
+            ${buttonGradient 
+              ? 'bg-gradient-to-r from-blue-600 to-cyan-500 text-white hover:from-blue-700 hover:to-cyan-600' 
+              : 'bg-blue-600 text-white hover:bg-blue-700'
+            }
+          `}
+        >
+          {buttonText}
+        </a>
+      )}
     </div>
   )
 
-  const Background = bgImage ? (
-    <>
-      <div className="absolute inset-0">
-        <div className="relative w-full h-full">
-          <Image
-            src={bgImage}
-            alt="Background"
-            fill
-            className="object-cover"
-            quality={90}
-            sizes="100vw"
-            priority
-          />
-        </div>
-      </div>
-      <div className={`absolute inset-0 ${bgImageOverlay}`} />
-    </>
-  ) : null
+  const ImageContainer = ({ position }: { position: 'left' | 'right' }) => (
+    <div className={`w-full lg:w-1/2 relative flex items-end ${imageHeight}`}>
+      <Image
+        src={imageSrc!}
+        alt={imageAlt || ''}
+        fill
+        className={`${imageStyle} rounded-lg`}
+        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 800px"
+        quality={100}
+        priority
+      />
+    </div>
+  )
 
   return (
     <section 
+      ref={sectionRef}
       className={`
         relative
         ${minHeight}
-        overflow-hidden
-        flex flex-col
+        ${bgColor}
+        ${bgGradient ? 'scroll-gradient' : ''}
+        ${className}
       `}
+      style={bgGradient ? { background: bgGradient } : undefined}
     >
-      {useScrollEffect ? (
-        <div className="absolute inset-0">
-          <div className="absolute inset-0" style={{ backgroundColor: bgColor || 'white' }} />
-          <ClientGradient 
-            bgColor={bgColor} 
-            bgGradient={bgGradient}
-            className={className}
-          >
-            {Background}
-          </ClientGradient>
-        </div>
-      ) : (
-        <div className={`absolute inset-0 ${className || ''}`} style={{ backgroundColor: bgColor || 'white' }}>
-          {Background}
-        </div>
+      {/* Background Image */}
+      {bgImage && (
+        <>
+          <div className="absolute inset-0">
+            <Image
+              src={bgImage}
+              alt="Background"
+              fill
+              className="object-cover"
+              priority
+            />
+          </div>
+          {bgImageOverlay && (
+            <div className={`absolute inset-0 ${bgImageOverlay}`}></div>
+          )}
+        </>
       )}
-      
-      <div className="relative z-10 flex-grow flex">
-        {decorativeElements && renderDecorativeElements()}
-        {MainContent}
+
+      {/* Content Container */}
+      <div className={`relative h-full ${useContainer ? 'container mx-auto px-4' : ''}`}>
+        <div className={`flex flex-col lg:flex-row h-full ${verticalAlignClass} justify-center`}>
+          {/* Left Side Content */}
+          {imagePosition === 'left' && !orderImageFirst && imageSrc && <ImageContainer position="left" />}
+          
+          {/* Main Content */}
+          {!description || descriptionAsChild ? (
+            <ContentWrapper />
+          ) : (
+            <div className={`${contentWidth === 'half' ? 'w-full lg:w-1/2' : 'w-full'}`}>
+              <p 
+                className={`whitespace-pre-line ${textColor}`}
+                style={marginStyles}
+              >
+                {description}
+              </p>
+            </div>
+          )}
+
+          {/* Image after content if orderImageFirst is true */}
+          {imagePosition === 'left' && orderImageFirst && imageSrc && <ImageContainer position="left" />}
+
+          {/* Right Side Image */}
+          {imagePosition === 'right' && imageSrc && <ImageContainer position="right" />}
+        </div>
       </div>
     </section>
   )

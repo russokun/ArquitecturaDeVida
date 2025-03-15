@@ -12,11 +12,11 @@ const Navbar = () => {
   const isActiveLink = (path: string) => pathname === path
 
   const navLinks = [
-    { href: "/", text: "Inicio" },
-    { href: "/services", text: "Servicios" },
-    { href: "/resources", text: "Recursos" },
-    { href: "/testimonios", text: "Testimonios" },
-    { href: "/about", text: "Sobre Mí" },
+    { text: "Inicio", href: "/" },
+    { text: "Sobre Mí", href: "/about" },
+    { text: "Testimonios", href: "/testimonios" },
+    { text: "Recursos", href: "/resources" },
+    { text: "Servicios", href: "/services" },
   ]
 
   const toggleMenu = () => {

@@ -7,10 +7,10 @@ const Footer = () => {
   const currentYear = new Date().getFullYear()
 
   const socialLinks = [
-    { icon: Instagram, href: "#", color: "hover:text-pink-500" },
-    { icon: Facebook, href: "#", color: "hover:text-blue-600" },
-    { icon: Linkedin, href: "#", color: "hover:text-blue-500" },
-    { icon: Youtube, href: "#", color: "hover:text-red-600" },
+    { icon: Instagram, href: "https://www.instagram.com/analidiapenacoach/?hl=es-la", color: "hover:text-pink-500" },
+    { icon: Facebook, href: "https://www.facebook.com/ANALIDIAARQUITECTURADEVIDA?_rdc=2&_rdr#", color: "hover:text-blue-600" },
+    { icon: Linkedin, href: "https://www.linkedin.com/in/ana-lidia-pe%C3%B1a-grullon-852a6760/", color: "hover:text-blue-500" },
+    { icon: Youtube, href: "https://www.youtube.com/channel/UCbYoJ7QB6BQhNaOozBZYTTw", color: "hover:text-red-600" },
   ]
 
   const quickLinks = [

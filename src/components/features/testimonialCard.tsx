@@ -2,6 +2,7 @@
 
 import Image from 'next/image'
 import { useState } from 'react'
+import VideoPlayer from '@/components/common/videoPlayer'
 
 interface TestimonialProps {
   name: string
@@ -30,17 +31,10 @@ export default function TestimonialCard({
       {/* Video o Imagen */}
       <div className="relative w-full">
         {videoUrl ? (
-          <div className="aspect-video w-full">
-            <iframe
-              width="100%"
-              height="100%"
-              src={videoUrl}
-              title={`Testimonio de ${name}`}
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowFullScreen
-              className="w-full h-full"
-            />
-          </div>
+          <VideoPlayer
+            src={videoUrl}
+            title={`Testimonio de ${name}`}
+          />
         ) : imageUrl && (
           <div className="relative aspect-[4/3]">
             <Image
@@ -65,7 +59,6 @@ export default function TestimonialCard({
           </div>
           <div className="flex items-center gap-2">
             <span className="text-gray-600">{country}</span>
-            {/* No necesitamos Image component para banderas externas */}
             <img
               src={flagUrl}
               alt={`Bandera de ${country}`}
