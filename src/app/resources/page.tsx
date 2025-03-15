@@ -120,7 +120,7 @@ export default function ResourcesPage() {
       {/* Recurso 5: Curso Online */}
       <SplitContent
         imagePosition="right"
-        imageSrc="/imgs/inicio/11062b_1cbb4f5277c648dfb1eae1ec376a0003_mv2_d_6984_4480_s_4_2.jpg"
+        imageSrc="/imgs/recursos/img4.jpg"
         imageAlt="Curso Online de Facilitación"
         title={<span className="text-4xl md:text-5xl font-bold text-yellow-800">Curso Online de Facilitación</span>}
         content={
