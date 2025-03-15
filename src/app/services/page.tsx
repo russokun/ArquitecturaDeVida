@@ -136,7 +136,7 @@ export default function ServicesPage() {
 
       <SplitContent
         imagePosition="left"
-        imageSrc="/imgs/servicios/11062b_53fd61938d2c44c798c23d147449520fmv2.jpg"
+        imageSrc="/imgs/servicios/img5.jpg"
         imageAlt="Certificación"
         title={<span className="text-sky-800">Certificación en Facilitación Creativa</span>}
         content={
