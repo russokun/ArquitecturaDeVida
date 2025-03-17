@@ -8,7 +8,7 @@ interface TestimonialProps {
   name: string
   profession: string
   country: string
-  countryCode: string // Por ejemplo: 'cl', 'mx', 'co'
+  countryCode: string
   testimonialText?: string
   imageUrl?: string
   videoUrl?: string
@@ -27,14 +27,16 @@ export default function TestimonialCard({
   const flagUrl = `https://flags.fmcdn.net/data/flags/mini/${countryCode.toLowerCase()}.png`
 
   return (
-    <div className="bg-white rounded-xl shadow-lg overflow-hidden">
+    <div className="bg-white rounded-xl shadow-lg overflow-hidden h-full flex flex-col">
       {/* Video o Imagen */}
-      <div className="relative w-full">
+      <div className="w-full">
         {videoUrl ? (
-          <VideoPlayer
-            src={videoUrl}
-            title={`Testimonio de ${name}`}
-          />
+          <div className="aspect-[16/9]">
+            <VideoPlayer
+              src={videoUrl}
+              title={`Testimonio de ${name}`}
+            />
+          </div>
         ) : imageUrl && (
           <div className="relative aspect-[4/3]">
             <Image
@@ -51,14 +53,14 @@ export default function TestimonialCard({
       </div>
 
       {/* Información del Testimonial */}
-      <div className="p-6">
-        <div className="flex items-center gap-4 mb-4">
+      <div className="p-4 flex-1 flex flex-col">
+        <div className="flex items-center gap-4 mb-2">
           <div className="flex-1">
-            <h3 className="text-xl font-bold text-gray-800">{name}</h3>
-            <p className="text-gray-600">{profession}</p>
+            <h3 className="text-lg font-bold text-gray-800 mb-0.5">{name}</h3>
+            <p className="text-sm text-gray-600">{profession}</p>
           </div>
           <div className="flex items-center gap-2">
-            <span className="text-gray-600">{country}</span>
+            <span className="text-sm text-gray-600">{country}</span>
             <img
               src={flagUrl}
               alt={`Bandera de ${country}`}
@@ -69,8 +71,8 @@ export default function TestimonialCard({
 
         {/* Texto del Testimonial */}
         {!videoUrl && testimonialText && (
-          <div className="mt-4">
-            <p className="text-gray-700 leading-relaxed">{testimonialText}</p>
+          <div className="mt-2 flex-1">
+            <p className="text-gray-700 text-sm leading-relaxed">{testimonialText}</p>
           </div>
         )}
       </div>

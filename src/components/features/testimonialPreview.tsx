@@ -16,40 +16,40 @@ const previewTestimonials = [
     profession: "Coach  y mentora de liderazgo",
     country: "Panamá",
     countryCode: "pa",
-    videoUrl: "videos/testimonios/Nadiuska Del Castillo.mp4",
+    videoUrl: "/videos/testimonios/Nadiuska Del Castillo.mp4",
   },
   {
     name: "Nina Pino",
     profession: "Coach, Facilitadora, y Especialista en Facilitación",
     country: "Venezuela",
     countryCode: "ve",
-    videoUrl: "videos/testimonios/Nina Pino.mp4",
+    videoUrl: "/videos/testimonios/Nina Pino.mp4",
   },
   {
     name: "Rosa Jimenez",
     profession: "Coach de bienestar y conferencista JMT",
     country: "Panamá",
     countryCode: "pa",
-    videoUrl: "videos/testimonios/Rosa Jimenez.mp4",
+    videoUrl: "/videos/testimonios/Rosa Jimenez.mp4",
   },
 ]
 
 export default function TestimonialPreview() {
   return (
-    <section className="bg-gray-50 py-16 md:py-10">
+    <section className="bg-gray-50 py-12 sm:py-16">
       <div className="container mx-auto px-4">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
+        <div className="text-center mb-10 sm:mb-16">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
             Testimonios
           </h2>
-          <p className="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto">
+          <p className="text-lg text-gray-600 max-w-3xl mx-auto">
             Descubre las experiencias transformadoras de quienes ya han trabajado con nosotros
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 lg:gap-8 mb-12">
           {previewTestimonials.map((testimonio, index) => (
-            <div key={index} className="h-full">
+            <div key={index} className="flex">
               <TestimonialCard {...testimonio} />
             </div>
           ))}

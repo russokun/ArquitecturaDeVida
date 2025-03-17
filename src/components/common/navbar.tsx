@@ -30,7 +30,7 @@ const Navbar = () => {
           {/* Logo */}
           <Link href="/" className="relative w-60 h-60">
             <Image
-              src="/imgs/common/logo.png"
+              src="/imgs/common/Logo.png"
               alt="Arq de Vida Logo"
               fill
               className="object-contain"

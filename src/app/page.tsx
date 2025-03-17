@@ -26,13 +26,13 @@ export default function HomePage() {
         imageHeight=" h-[500px] lg:h-[800px]"
       >
         <div className="space-y-6 px-4 lg:px-0 max-w-xl mx-auto mt-10">
-          <p className="whitespace-pre-wrap text-base md:text-xl lg:text-2xl xl:text-3xl">
+          <p className="whitespace-pre-wrap text-base md:text-xl lg:text-2xl xl:text-3xl text-white">
             ¿Quieres convertirte en un referente en el mundo de la facilitación y ofrecer experiencias formativas creativas y memorables?
           </p>
-          <p className="text-base md:text-xl lg:text-2xl xl:text-3xl">
+          <p className="text-base md:text-xl lg:text-2xl xl:text-3xl text-white">
             ¿Te gustaría ahorrar tiempo y recursos valiosos en tu camino hacia el éxito en la facilitación?
           </p>
-          <p className="text-base md:text-xl lg:text-2xl xl:text-3xl">
+          <p className="text-base md:text-xl lg:text-2xl xl:text-3xl text-white">
             Descarga ahora mismo tu recurso gratuito y aprende cómo la Rueda de las Habilidades del Facilitador Creativo puede ayudarte a destacarte en el mundo de la facilitación
           </p>
           <div className="text-center">
