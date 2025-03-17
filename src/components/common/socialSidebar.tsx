@@ -1,53 +1,72 @@
 'use client'
 
-import Link from 'next/link'
 import { Instagram, Facebook, Linkedin, Youtube } from 'lucide-react'
+import Link from 'next/link'
 
 const socialLinks = [
   {
     name: 'Instagram',
     href: 'https://www.instagram.com/analidiapenacoach/?hl=es-la',
     icon: Instagram,
-    bgColor: 'bg-pink-500 hover:bg-pink-600'
+    color: 'hover:text-pink-500',
   },
   {
     name: 'Facebook',
     href: 'https://www.facebook.com/ANALIDIAARQUITECTURADEVIDA?_rdc=2&_rdr#',
     icon: Facebook,
-    bgColor: 'bg-blue-600 hover:bg-blue-700'
+    color: 'hover:text-blue-600',
   },
   {
     name: 'LinkedIn',
     href: 'https://www.linkedin.com/in/ana-lidia-pe%C3%B1a-grullon-852a6760/',
     icon: Linkedin,
-    bgColor: 'bg-blue-500 hover:bg-blue-600'
+    color: 'hover:text-blue-500',
   },
   {
-    name: 'YouTube',
+    name: 'Youtube',
     href: 'https://www.youtube.com/channel/UCbYoJ7QB6BQhNaOozBZYTTw',
     icon: Youtube,
-    bgColor: 'bg-red-600 hover:bg-red-700'
-  }
+    color: 'hover:text-red-600',
+  },
 ]
 
 export default function SocialSidebar() {
   return (
-    <div className="fixed right-4 top-1/2 transform -translate-y-1/2 flex flex-col gap-4 z-20">
-      {socialLinks.map((social) => {
-        const Icon = social.icon
-        return (
+    <>
+      {/* Versión Desktop - Sidebar */}
+      <div className="hidden lg:flex fixed right-0 top-1/2 -translate-y-1/2 flex-col gap-4 bg-white/80 backdrop-blur-sm p-3 rounded-l-lg shadow-lg z-40">
+        {socialLinks.map((link) => (
           <Link
-            key={social.name}
-            href={social.href}
+            key={link.name}
+            href={link.href}
             target="_blank"
             rel="noopener noreferrer"
-            className={`${social.bgColor} text-white p-3 rounded-full transition-all duration-300 hover:scale-110 shadow-lg hover:shadow-xl`}
-            aria-label={social.name}
+            className={`text-gray-600 ${link.color} transition-colors p-2 rounded-full hover:bg-gray-100`}
           >
-            <Icon size={24} />
+            <link.icon size={24} />
           </Link>
-        )
-      })}
-    </div>
+        ))}
+      </div>
+
+      {/* Versión Mobile - Bottom Bar */}
+      <div className="lg:hidden fixed bottom-0 left-0 right-0 bg-white/95 backdrop-blur-sm shadow-lg z-40">
+        <div className="container mx-auto px-4">
+          <div className="flex justify-center gap-6 py-3">
+            {socialLinks.map((link) => (
+              <Link
+                key={link.name}
+                href={link.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`text-gray-600 ${link.color} transition-colors p-2 rounded-full hover:bg-gray-100 active:scale-95`}
+              >
+                <link.icon size={24} />
+                <span className="sr-only">{link.name}</span>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </div>
+    </>
   )
 }
