@@ -170,19 +170,19 @@ CON TU ESENCIA.`}
         }}
       >
         <div className="space-y-8 px-4 lg:px-0 max-w-2xl mx-auto text-center mt-5">
-          <p className="text-base md:text-lg lg:text-xl leading-relaxed">
+          <p className="text-base md:text-lg lg:text-xl leading-relaxed text-white">
         Todo proceso creativo requiere que te prepares para esa descarga energética y eso implica que conozcas con cuales recursos cuentas.
         Para ello tengo para ti mi poderosa guía gratuita de AUTOCONOCIMIENTO.
           </p>
           <div>
-        <h2 className="text-2xl md:text-3xl lg:text-4xl mb-8">
+        <h2 className="text-2xl md:text-3xl lg:text-4xl mb-8 text-white">
           Recursos para Facilitadores
         </h2>
         <Button 
           href="/resources" 
           variant="gradient"
           size="lg"
-          className="shadow-xl hover:shadow-2xl transform hover:-translate-y-1 mb-3"
+          className="shadow-xl hover:shadow-2xl transform hover:-translate-y-1 mb-3 "
         >
           Quiero Descargarla Ya
         </Button>
@@ -205,11 +205,11 @@ CON TU ESENCIA.`}
         }}
       >
         <div className="space-y-8 px-4 lg:px-0 max-w-2xl mx-auto text-center">
-          <p className="text-base md:text-lg lg:text-xl leading-relaxed mt-5">
+          <p className="text-base md:text-lg lg:text-xl leading-relaxed mt-5 text-white">
             ¿Estás listo para ahorrar tiempo y recursos valiosos en tu camino hacia el éxito en la facilitación y convertirte en un referente en este campo profesional?
           </p>
           <div>
-            <h2 className="text-2xl md:text-3xl lg:text-4xl mb-8">
+            <h2 className="text-2xl md:text-3xl lg:text-4xl mb-8 text-white">
               ¡Diseñemos y construyámoslo juntos!
             </h2>
             <Button 
