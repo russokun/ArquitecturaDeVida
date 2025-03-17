@@ -83,6 +83,7 @@ const testimonios = [
     profession: "Coach y mentora , Ceo de Ámate Desnuda",
     country: "República Dominicana",
     countryCode: "do",
+    imageUrl: "/imgs/testimonios/yinelka.png",
     testimonialText:"Holaa querida Ana, quiero agradecerte infinitamente tu apoyo con el programa Arquitectura de vida, gracias a el logré ver mis limitaciones como coach, tu acompañamiento genuino, sincero y empático me permitió desarrollar mi programa de coaching y clarificar como entregarlo, tu seguimiento y respeto a mis silencios honra el verdadero desempeño que para mi es importante tener como coach, acompañar sin invadir, ser amoroso sin cargar, en fin, gracias a ti Amate desnuda salio al mundo, un abrazo."
   },
   {
@@ -90,7 +91,7 @@ const testimonios = [
     profession: "Coach de vida",
     country: "Costa Rica",
     countryCode: "cr",
-    
+    imageUrl: "/imgs/testimonios/geannina.png",
     testimonialText:"Encontré en Ana Lidia una coach con mucha calidez y humildad. Fueron sesiones muy empáticas, permitiéndome esto, poder tratar temas que nunca había tocado con nadie. Me sentí en confianza y realmente acompañada en mi proceso de lograr mis objetivos personales. La recomiendo totalmente, porque encontrarán en ella, una excelente profesional y mejor persona, conocedora además, de múltiples herramientas que me invitaron a profundizar más en mi SER, para poder tomar acciones. Luego de sus sesiones logré la motivación necesaria para centrarme mucho más en mis metas personales y profesionales."
   },
 ]

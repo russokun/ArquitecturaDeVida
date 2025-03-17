@@ -1,6 +1,6 @@
 import SplitContent from "@/components/features/splitContent"
 import VideoGallery from "@/components/features/videoGallery"
-
+import Button from "@/components/common/button"
 export const metadata = {
   title: "Recursos | Arq de Vida",
   description: "Recursos gratuitos y premium para mejorar tus habilidades de facilitación",
@@ -72,9 +72,12 @@ export default function ResourcesPage() {
               Accede a nuestra biblioteca de videos formativos donde compartimos técnicas, 
               herramientas y mejores prácticas para la facilitación creativa.
             </p>
-            <button className="px-8 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-3xl font-medium">
-              Ver Videos
-            </button>
+            <Button
+              href="https://www.youtube.com/channel/UCbYoJ7QB6BQhNaOozBZYTTw"
+              className="bg-blue-600 hover:bg-blue-700 text-white"
+            >
+              Ir al Canal
+            </Button>
           </div>
         </div>
       </div>
@@ -103,7 +106,7 @@ export default function ResourcesPage() {
         imagePosition="left"
         imageSrc="/imgs/recursos/img3.jpg"
         imageAlt="Biblioteca de Dinámicas"
-        title={<span className="text-4xl md:text-5xl font-bold text-red-800">Biblioteca de Dinámicas</span>}
+        title={<span className="text-4xl md:text-5xl font-bold text-red-800">La Rueda Del Facilitador Kreativo</span>}
         content={
           <div className="space-y-4">
             <p className="text-lg text-red-700">
@@ -122,7 +125,7 @@ export default function ResourcesPage() {
         imagePosition="right"
         imageSrc="/imgs/recursos/img4.jpg"
         imageAlt="Curso Online de Facilitación"
-        title={<span className="text-4xl md:text-5xl font-bold text-yellow-800">Curso Online de Facilitación</span>}
+        title={<span className="text-4xl md:text-5xl font-bold text-yellow-800">3 Secretos Para Disenar Cursos/Talleres Creativos Que Conectan</span>}
         content={
           <div className="space-y-4">
             <p className="text-lg text-yellow-900">

@@ -95,8 +95,6 @@ export default function SplitContent({
           priority={imagePriority}
           className={`
             object-cover object-center
-            
-            hover:scale-[1.12] transition-transform duration-700
             ${isImageLoaded ? 'opacity-100' : 'opacity-0'}
           `}
           sizes="(max-width: 1024px) 100vw, 50vw"
