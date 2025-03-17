@@ -7,10 +7,10 @@ import { useState } from "react"
 type SplitContentProps = {
   imagePosition?: "left" | "right"
   minHeight?: string
-  imageSrc: string
-  imageAlt: string
+  imageSrc?: string
+  imageAlt?: string
   imagePriority?: boolean
-  title?: string
+  title?: ReactNode
   titleClassName?: string
   content: ReactNode
   contentClassName?: string
@@ -20,11 +20,12 @@ type SplitContentProps = {
   buttonClassName?: string
   imageBg?: string
   contentBg?: string
+  useContainer?: boolean
 }
 
 export default function SplitContent({
   imagePosition = "left",
-  minHeight = "min-h-[600px]",
+  minHeight = "",
   imageSrc,
   imageAlt,
   imagePriority = false,
@@ -38,57 +39,86 @@ export default function SplitContent({
   buttonClassName = "",
   imageBg = "bg-gray-100",
   contentBg = "bg-white",
+  useContainer = false,
 }: SplitContentProps) {
   const [isImageLoaded, setIsImageLoaded] = useState(false)
 
-  return (
-    <section className={`flex flex-col md:flex-row w-full ${minHeight} ${className}`}>
-      {/* Image Container */}
-      <div 
-        className={`w-full md:w-1/2 relative ${imageBg} ${
-          imagePosition === "right" ? "md:order-2" : "md:order-1"
-        } overflow-hidden`}
-      >
-        <div className="relative w-full h-full min-h-[300px]">
-          <Image
-            src={imageSrc}
-            alt={imageAlt}
-            fill
-            priority={imagePriority}
-            className={`object-cover transition-opacity duration-300 ${
-              isImageLoaded ? 'opacity-100' : 'opacity-0'
-            }`}
-            sizes="(max-width: 768px) 100vw, 50vw"
-            onLoad={() => setIsImageLoaded(true)}
-          />
-        </div>
-      </div>
-
-      {/* Content Container */}
-      <div
-        className={`w-full md:w-1/2 flex flex-col ${contentBg} ${
-          imagePosition === "right" ? "md:order-1" : "md:order-2"
-        }`}
-      >
-        <div className="flex flex-col justify-center px-8 md:px-12 lg:px-16 py-12 h-full">
-          {title && (
-            <h2 className={`text-2xl md:text-3xl lg:text-4xl font-bold mb-6 ${titleClassName}`}>
+  const ContentSection = () => (
+    <div
+      className={`
+        ${imageSrc ? 'w-full lg:w-1/2' : 'w-full'}
+        ${contentBg} 
+        order-2 lg:order-none
+        py-8 md:py-12 lg:py-16
+        px-6 md:px-8 lg:px-12
+        flex items-center
+      `}
+    >
+      <div className="w-full max-w-xl">
+        {title && (
+          <div className={`mb-6 ${titleClassName}`}>
+            <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold">
               {title}
             </h2>
-          )}
+          </div>
+        )}
 
-          <div className={`space-y-4 ${contentClassName}`}>{content}</div>
+        <div className={`space-y-4 ${contentClassName}`}>{content}</div>
 
-          {buttonText && (
-            <a
-              href={buttonUrl}
-              className={`inline-block px-8 py-3 mt-8 rounded-full font-medium transition-colors text-white ${buttonClassName}`}
-            >
-              {buttonText}
-            </a>
-          )}
-        </div>
+        {buttonText && (
+          <a
+            href={buttonUrl}
+            className={`inline-block px-8 py-3 mt-8 rounded-full font-medium transition-all duration-300 text-white ${buttonClassName}`}
+          >
+            {buttonText}
+          </a>
+        )}
       </div>
+    </div>
+  )
+
+  const ImageSection = () => imageSrc ? (
+    <div 
+      className={`
+        w-full lg:w-1/2
+        ${imageBg} 
+        order-1 lg:order-none
+        overflow-hidden
+        relative
+      `}
+    >
+      <div className="w-full h-[280px] sm:h-[350px] md:h-[400px] lg:h-full relative">
+        <Image
+          src={imageSrc}
+          alt={imageAlt || ''}
+          fill
+          priority={imagePriority}
+          className={`
+            object-cover object-center
+            ${isImageLoaded ? 'opacity-100' : 'opacity-0'}
+          `}
+          sizes="(max-width: 1024px) 100vw, 50vw"
+          onLoad={() => setIsImageLoaded(true)}
+        />
+      </div>
+    </div>
+  ) : null
+
+  const Content = () => (
+    <div className="w-full flex flex-col lg:flex-row min-h-full">
+      {imagePosition === "left" && imageSrc && <ImageSection />}
+      <ContentSection />
+      {imagePosition === "right" && imageSrc && <ImageSection />}
+    </div>
+  )
+
+  return useContainer ? (
+    <section className={`container mx-auto ${className}`}>
+      <Content />
     </section>
+  ) : (
+    <div className={`w-full ${className}`}>
+      <Content />
+    </div>
   )
 }
